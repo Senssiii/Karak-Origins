@@ -1,13 +1,14 @@
 package fr.senssi.karakOrigins.utils.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
+import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public class ItemUtils {
 
@@ -32,17 +33,16 @@ public class ItemUtils {
     }
 
     public static boolean isTextItem(ItemStack item) {
-        NBTItem nbtItem = new NBTItem(item);
-        return nbtItem.getOrDefault("message", null) == null;
+        return NBT.get(item, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.hasTag("message"));
     }
-    
+
     public static void setItemValue(ItemStack i, String key, String value) {
-        NBTItem item = new NBTItem(i);
-        item.setString(key, value);
-        i.setItemMeta(item.getItem().getItemMeta());
+        NBT.modify(i, nbt -> {
+            nbt.setString(key, value);
+        });
     }
 
     public static String getItemValue(ItemStack item, String key) {
-        return new NBTItem(item).getString(key);
+        return NBT.get(item, (Function<ReadableItemNBT, String>) nbt -> nbt.getString(key));
     }
 }
