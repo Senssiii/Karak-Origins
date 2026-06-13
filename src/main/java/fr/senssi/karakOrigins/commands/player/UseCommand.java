@@ -12,6 +12,9 @@ public class UseCommand extends SimpleCommand {
         super("use", true);
     }
 
+    /**
+     * Commande d'utilisation d'un objet. L'objet utilisé doit être tenu dans la main droite.
+     */
     @Override
     public void execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;

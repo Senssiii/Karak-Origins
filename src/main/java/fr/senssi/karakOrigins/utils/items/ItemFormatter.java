@@ -10,26 +10,8 @@ import java.util.Collections;
 
 public class ItemFormatter {
     /**
-     * Il n'est pas nécessaire d'appeler updateItemFormatting pour afficher le changement
-     * @param s
-     * @param string
+     * Désactive les tags qui permettent d'avoir des informations sur l'objet.
      */
-    public static void setName(ItemStack s, String string){
-        String name = ChatColor.GRAY + string;
-        ItemMeta itemMeta = s.getItemMeta();
-        itemMeta.setDisplayName(name);
-
-        s.setItemMeta(itemMeta);
-    }
-
-    /**
-     * Il est nécessaire d'appeler updateItemFormatting pour afficher le changement
-     * @param s
-     * @param str
-     */
-    public static void setDescription(ItemStack s, String str){
-        ItemUtils.setItemValue(s, NBTKeys.DESCRIPTION,str);
-    }
     private static void hideEveryInfos(ItemMeta itemMeta) {
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -39,12 +21,49 @@ public class ItemFormatter {
         itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_DYE);
     }
-    public static void updateItemFormatting(ItemStack itemStack){
-        String description = ItemUtils.getItemValue(itemStack, NBTKeys.DESCRIPTION);
-        updateLore(itemStack,description);
+
+    /**
+     * Il n'est pas nécessaire d'appeler updateItemFormatting pour afficher le changement
+     *
+     * @param s      L'objet modifié.
+     * @param string Le nom de l'item
+     */
+    public static void setName(ItemStack s, String string) {
+        String name = ChatColor.GRAY + string;
+        ItemMeta itemMeta = s.getItemMeta();
+        itemMeta.setDisplayName(name);
+
+        s.setItemMeta(itemMeta);
     }
 
-    private static void updateLore(ItemStack s, String str){
+    /**
+     * Il est nécessaire d'appeler updateItemFormatting pour afficher le changement.
+     * Cette description sera affiché sur le tooltip de l'item directement.
+     *
+     * @param s   L'objet modifié.
+     * @param str La nouvelle description de l'item
+     */
+    public static void setDescription(ItemStack s, String str) {
+        ItemUtils.setItemNbt(s, NBTKeys.DESCRIPTION, str);
+    }
+
+    /**
+     * Met à jour la mise en forme de l'item visuellement (description).
+     *
+     * @param itemStack L'objet que l'on veut update
+     */
+    public static void updateItemFormatting(ItemStack itemStack) {
+        String description = ItemUtils.getItemNbt(itemStack, NBTKeys.DESCRIPTION);
+        updateLore(itemStack, description);
+    }
+
+    /**
+     * Met à jour le lore directement.
+     *
+     * @param s   L'objet à modifier
+     * @param str Le nouveau texte affiché
+     */
+    private static void updateLore(ItemStack s, String str) {
         ItemMeta itemMeta = s.getItemMeta();
         String lore = ChatColor.DARK_GRAY + str;
         itemMeta.setLore(Collections.singletonList(lore));

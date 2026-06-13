@@ -36,13 +36,18 @@ public class ItemUtils {
         return NBT.get(item, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.hasTag("message"));
     }
 
-    public static void setItemValue(ItemStack i, String key, String value) {
+    public static void setItemNbt(ItemStack i, String key, String value) {
         NBT.modify(i, nbt -> {
             nbt.setString(key, value);
         });
     }
 
-    public static String getItemValue(ItemStack item, String key) {
+    /**
+     * Récupère le String attaché.
+     *
+     * @return La valeur associée à la clé.
+     */
+    public static String getItemNbt(ItemStack item, String key) {
         return NBT.get(item, (Function<ReadableItemNBT, String>) nbt -> nbt.getString(key));
     }
 }
