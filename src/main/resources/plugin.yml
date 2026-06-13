@@ -33,6 +33,11 @@ commands:
     usage: "/craftid <get|set> <texte>"
     permission: karakorigins.mj.craftid
     permission-message: "§cTu n'as pas la permission pour cette commande."
+  setitemmessage:
+    description: "Ajoute un message quand on intéragit avec l'objet."
+    usage: "/setitemmessage <text>"
+    permission: karakorigins.mj.setitemmessage
+    permission-message: "§cTu n'as pas la permission pour cette commande."
   karaktest:
     description: "karaktest."
     usage: "/karaktest"

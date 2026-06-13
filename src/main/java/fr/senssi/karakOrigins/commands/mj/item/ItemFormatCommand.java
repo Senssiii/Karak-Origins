@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.commands.mj;
+package fr.senssi.karakOrigins.commands.mj.item;
 
 import fr.senssi.karakOrigins.commands.SimpleCommand;
 import fr.senssi.karakOrigins.utils.CommandUtils;
