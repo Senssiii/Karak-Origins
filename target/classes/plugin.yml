@@ -1,0 +1,58 @@
+name: Karak_Origins
+description: $description
+version: '0.2'
+
+main: fr.senssi.karakOrigins.KarakOrigins
+api-version: '1.20'
+
+authors: [ Senssi. ]
+
+commands:
+  narration:
+    description: "Permet de diffuser un message narratif (RP)."
+    usage: "/narration <global|local> [distance] <message>"
+    permission: karakorigins.mj.narration
+    permission-message: "§cTu n'as pas la permission d'utiliser la narration."
+  stopplayer:
+    description: "Arrête un joueur en lui appliquant lenteur et cécité."
+    usage: "/stopplayer <joueur>"
+    permission: karakorigins.mj.stopplayer
+    permission-message: "§cTu n'as pas la permission d'arrêter des joueurs."
+  itemformat:
+    description: "Permet de modifier les items."
+    usage: "/itemformat <nom|lore> <texte>"
+    permission: karakorigins.mj.itemformat
+    permission-message: "§cTu n'as pas la permission de modifier les items."
+  identity:
+    description: "Voir ou changer l'identité d'un joueur."
+    usage: "/identity <get|set> <texte>"
+    permission: karakorigins.mj.identity
+    permission-message: "§cTu n'as pas la permission pour cette commande."
+  craftid:
+    description: "Voir ou changer le craftid de l'item dans sa main."
+    usage: "/craftid <get|set> <texte>"
+    permission: karakorigins.mj.craftid
+    permission-message: "§cTu n'as pas la permission pour cette commande."
+  setitemmessage:
+    description: "Ajoute un message quand on intéragit avec l'objet."
+    usage: "/setitemmessage <text>"
+    permission: karakorigins.mj.setitemmessage
+    permission-message: "§cTu n'as pas la permission pour cette commande."
+  use:
+    description: "Utilise l'objet."
+    usage: "/use"
+    permission: karakorigins.mj.use
+    permission-message: "§cTu n'as pas la permission pour cette commande."
+  karaktest:
+    description: "karaktest."
+    usage: "/karaktest"
+    permission: karakorigins.mj.karaktest
+    permission-message: "§cTu n'as pas la permission pour cette commande."
+
+permissions:
+  karakorigins.mj.narration:
+    description: "Accès à la commande /narration"
+    default: op
+  karakorigins.mj.stopplayer:
+    description: "Accès à la commande /stopplayer"
+    default: op

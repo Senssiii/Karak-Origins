@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="triumph">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Documents/karak_lib/triumph-gui-3.1.13/core" />
+      <root url="file://$USER_HOME$/Documents/karak_lib/triumph-gui-3.1.13/core/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
