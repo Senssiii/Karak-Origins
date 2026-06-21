@@ -2,6 +2,7 @@ package fr.senssi.karakOrigins.commands.mj.item;
 
 import fr.senssi.karakOrigins.commands.SimpleCommand;
 import fr.senssi.karakOrigins.utils.Messenger;
+import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import org.bukkit.command.CommandSender;
@@ -19,8 +20,9 @@ public class SetItemMessageCommand extends SimpleCommand {
         Player player = (Player) sender;
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         String message = String.join(" ", args);
-        
+
         ItemUtils.setItemNbt(itemInHand, NBTKeys.MESSAGE, message);
+        ItemFormatter.updateItemFormatting(itemInHand);
 
         Messenger.sendAdminMessage("Nouveau message : " + message, player);
     }

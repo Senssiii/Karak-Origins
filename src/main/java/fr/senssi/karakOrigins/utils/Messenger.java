@@ -35,6 +35,9 @@ public class Messenger {
         log(message, server);
     }
 
+    /**
+     * Envoie un message sans formattage aux joueurs autour.
+     */
     public static void sendLocalMessage(String str, Player start, int distance) {
         List<Entity> nearbyEntities = start.getNearbyEntities(distance, distance, distance);
         start.sendMessage(str);
@@ -43,6 +46,12 @@ public class Messenger {
         }
     }
 
+    /**
+     * @param prefix   Le préfixe placé devant le message, après le nom du joueur
+     * @param msg      Le message envoyé
+     * @param p        Le joueur depuis qui on envoie le message (son nom est affiché).
+     * @param distance Distance max pour recevoir le message
+     */
     public static void sendLocalPlayerMessage(String prefix, String msg, Player p, int distance) {
         Identity identity = IdentityManager.getIdentity(p);
         String message = String.format("%s%s %s %s%s", ChatColor.GRAY, identity.getNomPrenom(), prefix, ChatColor.GRAY, msg);

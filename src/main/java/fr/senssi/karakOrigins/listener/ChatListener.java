@@ -26,17 +26,19 @@ public class ChatListener implements Listener {
 
         Bukkit.getScheduler().runTask(plugin, () -> {
             if (message.startsWith("**")) {
-                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[AGIT]", message.substring(2).trim(), player, 25);
+                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[AGIT]", message.substring(2).trim(), player, 20);
             } else if (message.startsWith("*")) {
                 Messenger.agirMessage(message.substring(1).trim(), player);
             } else if (message.startsWith("!")) {
-                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CRIE]", message.substring(1).trim(), player, 25);
-            } else if (message.startsWith("(")) {
+                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CRIE]", message.substring(1).trim(), player, 20);
+            } else if (message.startsWith("$")) {
+                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CHUCHOTTE]", message.substring(1).trim(), player, 1);
+            } else if (message.startsWith("(")) { // HRP
                 String hrp = message.substring(1);
                 if (hrp.endsWith(")")) hrp = hrp.substring(0, hrp.length() - 1);
-                Messenger.sendGlobalMessage(player.getName()+" [HRP]", hrp.trim(), player.getServer());
-            } else {
-                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[PARLE]", message, player, 10);
+                Messenger.sendGlobalMessage(player.getName() + " [HRP]", hrp.trim(), player.getServer());
+            } else { // Parle normalement
+                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[PARLE]", message, player, 5);
             }
         });
     }

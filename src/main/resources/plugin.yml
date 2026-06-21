@@ -38,6 +38,11 @@ commands:
     usage: "/setitemmessage <text>"
     permission: karakorigins.mj.setitemmessage
     permission-message: "§cTu n'as pas la permission pour cette commande."
+  use:
+    description: "Utilise l'objet."
+    usage: "/use"
+    permission: karakorigins.mj.use
+    permission-message: "§cTu n'as pas la permission pour cette commande."
   karaktest:
     description: "karaktest."
     usage: "/karaktest"

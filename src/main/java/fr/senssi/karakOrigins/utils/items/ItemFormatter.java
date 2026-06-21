@@ -29,11 +29,7 @@ public class ItemFormatter {
      * @param string Le nom de l'item
      */
     public static void setName(ItemStack s, String string) {
-        String name = ChatColor.GRAY + string;
-        ItemMeta itemMeta = s.getItemMeta();
-        itemMeta.setDisplayName(name);
-
-        s.setItemMeta(itemMeta);
+        ItemUtils.setItemNbt(s, NBTKeys.NOM_ITEM, string);
     }
 
     /**
@@ -55,6 +51,9 @@ public class ItemFormatter {
     public static void updateItemFormatting(ItemStack itemStack) {
         String description = ItemUtils.getItemNbt(itemStack, NBTKeys.DESCRIPTION);
         updateLore(itemStack, description);
+
+        String nom = ItemUtils.getItemNbt(itemStack, NBTKeys.NOM_ITEM);
+        updateNom(itemStack, nom);
     }
 
     /**
@@ -69,6 +68,18 @@ public class ItemFormatter {
         itemMeta.setLore(Collections.singletonList(lore));
 
         hideEveryInfos(itemMeta);
+
+        s.setItemMeta(itemMeta);
+    }
+
+    private static void updateNom(ItemStack s, String str) {
+        ItemMeta itemMeta = s.getItemMeta();
+        String name = ChatColor.GRAY + str;
+
+        if (ItemUtils.isTextItem(s))
+            name = "☆" + name;
+
+        itemMeta.setDisplayName(name);
 
         s.setItemMeta(itemMeta);
     }
