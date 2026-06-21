@@ -1,6 +1,6 @@
-package fr.senssi.karakOrigins.craft.recipes;
+package fr.senssi.karakOrigins.skill.craft.recipes;
 
-import fr.senssi.karakOrigins.craft.CraftContext;
+import fr.senssi.karakOrigins.skill.craft.CraftContext;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

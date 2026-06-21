@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.craft;
+package fr.senssi.karakOrigins.skill.craft;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -36,7 +36,15 @@ public class CraftContext {
     //     int currentTemp = context.getData("temperature", Integer.class, 0);
 
     // Getters standards
-    public Player getPlayer() { return player; }
-    public Block getBlock() { return block; }
-    public List<ItemStack> getInputs() { return inputs; }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public List<ItemStack> getInputs() {
+        return inputs;
+    }
 }

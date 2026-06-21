@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.craft.forge.soufflet;
+package fr.senssi.karakOrigins.skill.craft.forge.soufflet;
 
 import org.bukkit.inventory.ItemStack;
 

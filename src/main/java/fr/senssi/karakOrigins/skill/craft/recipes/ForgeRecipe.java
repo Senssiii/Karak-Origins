@@ -1,8 +1,8 @@
-package fr.senssi.karakOrigins.craft.recipes;
+package fr.senssi.karakOrigins.skill.craft.recipes;
 
-import fr.senssi.karakOrigins.craft.CraftContext;
-import fr.senssi.karakOrigins.craft.TemperatureRequired;
-import fr.senssi.karakOrigins.craft.ToolRequired;
+import fr.senssi.karakOrigins.skill.craft.CraftContext;
+import fr.senssi.karakOrigins.skill.craft.TemperatureRequired;
+import fr.senssi.karakOrigins.skill.craft.ToolRequired;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

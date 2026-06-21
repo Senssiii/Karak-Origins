@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.craft;
+package fr.senssi.karakOrigins.skill.craft;
 
 import org.bukkit.inventory.ItemStack;
 

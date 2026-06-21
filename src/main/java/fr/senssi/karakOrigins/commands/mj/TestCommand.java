@@ -2,7 +2,7 @@ package fr.senssi.karakOrigins.commands.mj;
 
 import dev.triumphteam.gui.guis.Gui;
 import fr.senssi.karakOrigins.commands.SimpleCommand;
-import fr.senssi.karakOrigins.craft.forge.soufflet.SouffletGUIUtils;
+import fr.senssi.karakOrigins.skill.craft.forge.soufflet.SouffletGUIUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 
