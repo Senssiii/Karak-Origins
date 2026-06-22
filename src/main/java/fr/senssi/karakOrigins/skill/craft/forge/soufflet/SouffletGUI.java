@@ -3,6 +3,7 @@ package fr.senssi.karakOrigins.skill.craft.forge.soufflet;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import fr.senssi.karakOrigins.KarakOrigins;
+import fr.senssi.karakOrigins.utils.GuiUtils;
 import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import net.kyori.adventure.text.Component;
@@ -11,14 +12,14 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NonNull;
 
-public class SouffletGUIUtils {
+public class SouffletGUI {
     public static Gui getGui() {
         Soufflet soufflet = new Soufflet(0, new ItemStack(Material.IRON_ORE), 0);
 
         Gui gui = Gui.gui().title(Component.text("Soufflet de forge")).rows(1)
                 .create();
-        gui.getFiller().fill(ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE)
-                .asGuiItem(event -> event.setCancelled(true)));
+        GuiUtils.fillWhiteGlassPaneGUI(gui);
+        
         ItemStack head = getSouffletHead();
 
         gui.setItem(2, ItemBuilder.from(head).asGuiItem(event -> {

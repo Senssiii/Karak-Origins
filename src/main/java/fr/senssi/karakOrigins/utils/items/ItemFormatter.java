@@ -23,7 +23,7 @@ public class ItemFormatter {
     }
 
     /**
-     * Il n'est pas nécessaire d'appeler updateItemFormatting pour afficher le changement
+     * Il est nécessaire d'appeler updateItemFormatting pour afficher le changement
      *
      * @param s      L'objet modifié.
      * @param string Le nom de l'item
@@ -44,7 +44,7 @@ public class ItemFormatter {
     }
 
     /**
-     * Met à jour la mise en forme de l'item visuellement (description).
+     * Met à jour la mise en forme de l'item visuellement (description & nom).
      *
      * @param itemStack L'objet que l'on veut update
      */

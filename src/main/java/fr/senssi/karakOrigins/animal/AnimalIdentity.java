@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.identity;
+package fr.senssi.karakOrigins.animal;
 
 import fr.senssi.karakOrigins.utils.EntityNbtManager;
 import fr.senssi.karakOrigins.utils.keys.AnimalKeys;
@@ -70,4 +70,7 @@ public class AnimalIdentity {
         this.gender = gender;
     }
 
+    public String getGenderString() {
+        return AnimalManager.genderToString(gender);
+    }
 }

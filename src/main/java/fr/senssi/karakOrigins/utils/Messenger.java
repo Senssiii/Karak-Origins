@@ -35,6 +35,18 @@ public class Messenger {
         log(message, server);
     }
 
+    public static void sendLocalNarrrationMessage(String str, Player startPosition, int distance) {
+        String message = ChatColor.GOLD + "[NARRATION] " + ChatColor.GRAY + str;
+        sendLocalMessage(message, startPosition, distance);
+        log(message, startPosition.getServer());
+    }
+
+    public static void sendPersonnalNarrationMessage(String str, Player player) {
+        String message = ChatColor.GOLD + "[NARRATION] " + ChatColor.GRAY + str;
+        player.sendMessage(message);
+        log(message, player.getServer());
+    }
+
     /**
      * Envoie un message sans formattage aux joueurs autour.
      */
@@ -57,12 +69,6 @@ public class Messenger {
         String message = String.format("%s%s %s %s%s", ChatColor.GRAY, identity.getNomPrenom(), prefix, ChatColor.GRAY, msg);
         sendLocalMessage(message, p, distance);
 
-    }
-
-    public static void sendLocalNarrrationMessage(String str, Player startPosition, int distance) {
-        String message = ChatColor.GOLD + "[NARRATION] " + ChatColor.GRAY + str;
-        sendLocalMessage(message, startPosition, distance);
-        log(message, startPosition.getServer());
     }
 
     public static void agirMessage(String message, Player player) {

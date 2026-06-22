@@ -10,6 +10,7 @@ import fr.senssi.karakOrigins.commands.mj.item.ItemFormatCommand;
 import fr.senssi.karakOrigins.commands.mj.item.SetItemMessageCommand;
 import fr.senssi.karakOrigins.commands.player.UseCommand;
 import fr.senssi.karakOrigins.listener.ChatListener;
+import fr.senssi.karakOrigins.listener.GUIOpener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KarakOrigins extends JavaPlugin {
@@ -30,6 +31,7 @@ public final class KarakOrigins extends JavaPlugin {
 
         commandManager.register(new TestCommand());
         getServer().getPluginManager().registerEvents(new ChatListener(instance), instance);
+        getServer().getPluginManager().registerEvents(new GUIOpener(), instance);
     }
 
     @Override

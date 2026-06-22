@@ -1,19 +1,17 @@
 package fr.senssi.karakOrigins.listener;
 
+import fr.senssi.karakOrigins.animal.AnimalGUI;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-public class GUIOpener {
+public class GUIOpener implements Listener {
 
-    // TODO
-    public void onRightClick(PlayerInteractEvent e) {
-        if (e.getHand().equals(EquipmentSlot.OFF_HAND)) return; // Pour éviter d'avoir des double appels
-
-    }
-
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onRightClickEntity(PlayerInteractEntityEvent e) {
         if (e.getHand().equals(EquipmentSlot.OFF_HAND)) return; // Pour éviter d'avoir des doubles appels
 
@@ -22,24 +20,20 @@ public class GUIOpener {
 
         Player player = e.getPlayer();
 
-        if (rightClicked instanceof org.bukkit.entity.Wolf ||
-                rightClicked instanceof org.bukkit.entity.Cat) {
-
+        if (!player.isSneaking()) return;
+        if (rightClicked instanceof org.bukkit.entity.Wolf || rightClicked instanceof org.bukkit.entity.Cat) {
             org.bukkit.entity.Tameable tameable = (org.bukkit.entity.Tameable) rightClicked;
-            if (tameable.isTamed() &&
-                    tameable.getOwner() != null &&
-                    tameable.getOwner().getUniqueId().equals(player.getUniqueId())) {
+            if (tameable.isTamed() && tameable.getOwner() != null && tameable.getOwner().getUniqueId().equals(player.getUniqueId())) {
 
-                // Appelle ta fonction d'ouverture d'inventaire ici
-                ouvrirInventaireAnimal(player, rightClicked);
+                e.setCancelled(true);
+                AnimalGUI.openAnimalGUI(player, rightClicked);
             }
-        } else if (rightClicked instanceof org.bukkit.entity.Horse ||
-                rightClicked instanceof org.bukkit.entity.Donkey) {
+        } else if (rightClicked instanceof org.bukkit.entity.Horse || rightClicked instanceof org.bukkit.entity.Donkey) {
 
-            // Optionnel : Vérifier si l'équidé est apprivoisé
             org.bukkit.entity.AbstractHorse horse = (org.bukkit.entity.AbstractHorse) rightClicked;
             if (horse.isTamed()) {
-                ouvrirInventaireAnimal(player, rightClicked);
+                e.setCancelled(true);
+                AnimalGUI.openAnimalGUI(player, rightClicked);
             }
         }
     }

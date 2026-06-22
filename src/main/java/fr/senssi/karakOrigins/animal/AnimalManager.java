@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.identity;
+package fr.senssi.karakOrigins.animal;
 
 public class AnimalManager {
     public static String genderToString(Gender gender) {
