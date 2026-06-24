@@ -7,12 +7,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class ItemFormatter {
     /**
      * Désactive les tags qui permettent d'avoir des informations sur l'objet.
      */
-    private static void hideEveryInfos(ItemMeta itemMeta) {
+    public static void hideEveryInfos(ItemMeta itemMeta) {
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
@@ -74,7 +75,8 @@ public class ItemFormatter {
 
     private static void updateNom(ItemStack s, String str) {
         ItemMeta itemMeta = s.getItemMeta();
-        String name = ChatColor.GRAY + str;
+        String name = ChatColor.GRAY + "";
+        name += Objects.requireNonNullElseGet(str, () -> itemMeta.getLocalizedName());
 
         if (ItemUtils.isTextItem(s))
             name = "☆" + name;

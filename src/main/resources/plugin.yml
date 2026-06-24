@@ -48,6 +48,11 @@ commands:
     usage: "/karaktest"
     permission: karakorigins.mj.karaktest
     permission-message: "§cTu n'as pas la permission pour cette commande."
+  itemattr:
+    description: "Permet de modifier les items."
+    usage: "/itemattr blabla bla bla"
+    permission: karakorigins.mj.itemattr
+    permission-message: "§cTu n'as pas la permission pour cette commande."
 
 permissions:
   karakorigins.mj.narration:
