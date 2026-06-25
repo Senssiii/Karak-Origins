@@ -32,7 +32,7 @@ public class ItemAttrCommand extends SimpleCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length < 3) return;
+        if (args.length < 1) return;
 
         if (Objects.equals(args[0], "add")) {
             Player player = (Player) sender;
@@ -62,7 +62,7 @@ public class ItemAttrCommand extends SimpleCommand {
                 player.sendMessage("§cLa valeur doit être un nombre.");
                 return;
             }
-
+            
             AttributeModifier.Operation parsedOperation;
             try {
                 parsedOperation = AttributeModifier.Operation.valueOf(args[3].toUpperCase());
@@ -81,10 +81,13 @@ public class ItemAttrCommand extends SimpleCommand {
             ItemFormatter.hideEveryInfos(item.getItemMeta());
 
             ItemFormatter.updateItemFormatting(item);
-            Messenger.sendAdminMessage("fLa structure physique de l'objet a été modifiée.", player);
+            Messenger.sendAdminMessage("La structure physique de l'objet a été modifiée.", player);
         } else if (Objects.equals(args[0], "reset")) { // On supprime tous les attributs sur l'item.
             ItemStack itemStack = ((Player) sender).getInventory().getItemInMainHand();
             KarakAttributeModifier.clearAllAttributes(itemStack);
+            Messenger.sendAdminMessage("L'item à bien été vidé de ses attributs.", ((Player) sender));
+        } else {
+            Messenger.sendAdminMessage("Le premier argument n'a pas été reconu.", (Player) sender);
         }
     }
 
@@ -92,20 +95,19 @@ public class ItemAttrCommand extends SimpleCommand {
     public List<String> tab(CommandSender sender, String[] args) {
         if (args.length == 1) return Arrays.asList("add", "reset");
 
-
-        if (args.length == 2) {
+        if (args.length == 2 && args[0].equalsIgnoreCase("add")) {
             return attributes.stream()
-                    .filter(attr -> attr.startsWith(args[0].toLowerCase()))
+                    .filter(attr -> attr.startsWith(args[1].toLowerCase()))
                     .collect(Collectors.toList());
         }
 
-        if (args.length == 3) {
+        if (args.length == 3 && args[0].equalsIgnoreCase("add")) {
             return List.of("0.0");
         }
 
-        if (args.length == 4) {
+        if (args.length == 4 && args[0].equalsIgnoreCase("add")) {
             return Arrays.asList("ADD_NUMBER", "ADD_SCALAR").stream()
-                    .filter(op -> op.startsWith(args[2].toUpperCase()))
+                    .filter(op -> op.startsWith(args[3].toUpperCase()))
                     .collect(Collectors.toList());
         }
 

@@ -3,11 +3,13 @@ package fr.senssi.karakOrigins.utils;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBTCompoundList;
+import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class KarakAttributeModifier {
@@ -17,10 +19,8 @@ public class KarakAttributeModifier {
     public static void clearAllAttributes(ItemStack item) {
         NBT.modify(item, nbt -> {
             nbt.removeKey("AttributeModifiers");
-            // On peut aussi enlever le flag de cache des stats si on veut
-            int flags = nbt.getInteger("HideFlags");
-            nbt.setInteger("HideFlags", flags & ~64);
         });
+        ItemFormatter.hideEveryInfos(Objects.requireNonNull(item.getItemMeta()));
     }
 
 
