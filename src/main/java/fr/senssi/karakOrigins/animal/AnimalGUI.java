@@ -56,6 +56,7 @@ public class AnimalGUI {
     private static void setButtonRename(Gui gui, Player player, AnimalIdentity animalIdentity, int slot) {
         GuiItem item = getButtonRename(player);
         item.setAction(event -> event.setCancelled(true));
+        // En attente du système de chat responsive.
         gui.setItem(slot, item);
     }
 
