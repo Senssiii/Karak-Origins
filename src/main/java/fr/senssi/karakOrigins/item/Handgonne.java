@@ -35,7 +35,7 @@ public class Handgonne extends KarakCustomItem {
     }
 
     private static @NonNull String getRechargeText(ItemStack self) {
-        String recharge_text = ChatColor.DARK_GRAY + "";
+        String recharge_text = "";
 
         int poudre = ItemUtils.getInt(self, HandgonneKeys.RECHARGE);
         switch (poudre) {
@@ -61,7 +61,7 @@ public class Handgonne extends KarakCustomItem {
     }
 
     private static @NonNull String getMunitionText(ItemStack self) {
-        String munition_text = ChatColor.DARK_GRAY + "";
+        String munition_text = "";
         int munition = ItemUtils.getInt(self, HandgonneKeys.MUNITION);
         switch (munition) {
             case 0:
@@ -264,9 +264,9 @@ public class Handgonne extends KarakCustomItem {
     public void updateCustomFormatting(ItemStack self) {
         setCustomDescrition(self);
 
-        String string = ItemUtils.getString(self, NBTKeys.DESCRIPTION);
-        String string1 = ItemUtils.getString(self, ArmeFeuKeys.RECHARGE_DESCRIPTION);
-        String string2 = ItemUtils.getString(self, ArmeFeuKeys.MUNITION_DESCRIPTION);
+        String string = ChatColor.DARK_GRAY + ItemUtils.getString(self, NBTKeys.DESCRIPTION);
+        String string1 = ChatColor.DARK_GRAY + ItemUtils.getString(self, ArmeFeuKeys.RECHARGE_DESCRIPTION);
+        String string2 = ChatColor.DARK_GRAY + ItemUtils.getString(self, ArmeFeuKeys.MUNITION_DESCRIPTION);
 
         ItemMeta itemMeta = self.getItemMeta();
         if (itemMeta == null) return;

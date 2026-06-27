@@ -1,5 +1,7 @@
 package fr.senssi.karakOrigins.utils.items;
 
+import fr.senssi.karakOrigins.item.KarakCustomItem;
+import fr.senssi.karakOrigins.item.KarakCustomItemRegistry;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemFlag;
@@ -50,9 +52,23 @@ public class ItemFormatter {
      * @param itemStack L'objet que l'on veut update
      */
     public static void updateItemFormatting(ItemStack itemStack) {
+        String itemId = ItemUtils.getString(itemStack, NBTKeys.CRAFT_ID);
+        KarakCustomItem customItem = KarakCustomItemRegistry.items.get(itemId);
+        if (customItem == null) {
+            updateDescription(itemStack);
+        } else {
+            customItem.updateCustomFormatting(itemStack);
+        }
+
+        updateNom(itemStack);
+    }
+
+    private static void updateDescription(ItemStack itemStack) {
         String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
         updateLore(itemStack, description);
+    }
 
+    private static void updateNom(ItemStack itemStack) {
         String nom = ItemUtils.getString(itemStack, NBTKeys.NOM_ITEM);
         updateNom(itemStack, nom);
     }
