@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.commands.mj;
+package fr.senssi.karakOrigins.commands.mj.item;
 
 import fr.senssi.karakOrigins.commands.SimpleCommand;
 import fr.senssi.karakOrigins.utils.Messenger;
@@ -24,7 +24,11 @@ public class ItemAttrCommand extends SimpleCommand {
             "generic.attack_knockback",
             "generic.armor",
             "generic.armor_toughness",
-            "generic.knockback_resistance");
+            "generic.knockback_resistance",
+            "generic.max_health",
+            "generic.movement_speed",
+            "generic.luck"
+    );
 
     public ItemAttrCommand() {
         super("itemattr", true);

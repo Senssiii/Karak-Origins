@@ -1,8 +1,12 @@
 package fr.senssi.karakOrigins;
 
 import fr.senssi.karakOrigins.commands.CommandManager;
-import fr.senssi.karakOrigins.commands.mj.*;
+import fr.senssi.karakOrigins.commands.mj.IdentityCommand;
+import fr.senssi.karakOrigins.commands.mj.NarrationCommand;
+import fr.senssi.karakOrigins.commands.mj.StopPlayerCommand;
+import fr.senssi.karakOrigins.commands.mj.TestCommand;
 import fr.senssi.karakOrigins.commands.mj.item.CraftIdCommand;
+import fr.senssi.karakOrigins.commands.mj.item.ItemAttrCommand;
 import fr.senssi.karakOrigins.commands.mj.item.ItemFormatCommand;
 import fr.senssi.karakOrigins.commands.mj.item.SetItemMessageCommand;
 import fr.senssi.karakOrigins.commands.player.UseCommand;
