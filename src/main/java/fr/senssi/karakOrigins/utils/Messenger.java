@@ -44,7 +44,7 @@ public class Messenger {
     public static void sendPersonnalNarrationMessage(String str, Player player) {
         String message = ChatColor.GOLD + "[NARRATION] " + ChatColor.GRAY + str;
         player.sendMessage(message);
-        log(message, player.getServer());
+        log(player.getDisplayName() + " > " + message, player.getServer());
     }
 
     /**

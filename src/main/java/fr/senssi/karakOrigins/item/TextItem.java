@@ -14,7 +14,7 @@ public class TextItem {
     }
 
     public String getMessage() {
-        return ItemUtils.getItemNbt(itemStack, NBTKeys.MESSAGE);
+        return ItemUtils.getString(itemStack, NBTKeys.MESSAGE);
     }
 
     public void onUse(Player player) {

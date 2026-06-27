@@ -23,7 +23,7 @@ public class CraftIdCommand extends SimpleCommand {
         if (args[0].equalsIgnoreCase("set")) {
             ItemUtils.setItemNbt(item, NBTKeys.CRAFT_ID, args[1]);
         } else if (args[0].equalsIgnoreCase("get")) {
-            String id = ItemUtils.getItemNbt(item, NBTKeys.CRAFT_ID);
+            String id = ItemUtils.getString(item, NBTKeys.CRAFT_ID);
             String name = item.getItemMeta().hasDisplayName() ? item.getItemMeta().getDisplayName() : item.getType().toString();
             String message = String.format("Id de %s : %s", name, id);
 

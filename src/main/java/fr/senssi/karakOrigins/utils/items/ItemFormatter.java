@@ -50,10 +50,10 @@ public class ItemFormatter {
      * @param itemStack L'objet que l'on veut update
      */
     public static void updateItemFormatting(ItemStack itemStack) {
-        String description = ItemUtils.getItemNbt(itemStack, NBTKeys.DESCRIPTION);
+        String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
         updateLore(itemStack, description);
 
-        String nom = ItemUtils.getItemNbt(itemStack, NBTKeys.NOM_ITEM);
+        String nom = ItemUtils.getString(itemStack, NBTKeys.NOM_ITEM);
         updateNom(itemStack, nom);
     }
 

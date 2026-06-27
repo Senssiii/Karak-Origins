@@ -1,9 +1,9 @@
 package fr.senssi.karakOrigins.commands.mj;
 
 import fr.senssi.karakOrigins.commands.SimpleCommand;
-import fr.senssi.karakOrigins.utils.KarakAttributeModifier;
 import fr.senssi.karakOrigins.utils.Messenger;
 import fr.senssi.karakOrigins.utils.items.ItemFormatter;
+import fr.senssi.karakOrigins.utils.items.KarakAttributeModifier;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.CommandSender;
@@ -62,7 +62,7 @@ public class ItemAttrCommand extends SimpleCommand {
                 player.sendMessage("§cLa valeur doit être un nombre.");
                 return;
             }
-            
+
             AttributeModifier.Operation parsedOperation;
             try {
                 parsedOperation = AttributeModifier.Operation.valueOf(args[3].toUpperCase());

@@ -1,9 +1,8 @@
-package fr.senssi.karakOrigins.utils;
+package fr.senssi.karakOrigins.utils.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBTCompoundList;
-import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;

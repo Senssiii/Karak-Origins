@@ -42,12 +42,22 @@ public class ItemUtils {
         });
     }
 
+    public static void setItemNbt(ItemStack i, String key, int value) {
+        NBT.modify(i, nbt -> {
+            nbt.setInteger(key, value);
+        });
+    }
+
     /**
      * Récupère le String attaché.
      *
      * @return La valeur associée à la clé.
      */
-    public static String getItemNbt(ItemStack item, String key) {
+    public static String getString(ItemStack item, String key) {
         return NBT.get(item, (Function<ReadableItemNBT, String>) nbt -> nbt.getString(key));
+    }
+
+    public static int getInt(ItemStack item, String key) {
+        return NBT.get(item, (Function<ReadableItemNBT, Integer>) nbt -> nbt.getInteger(key));
     }
 }
