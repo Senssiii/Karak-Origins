@@ -6,6 +6,7 @@ main: fr.senssi.karakOrigins.KarakOrigins
 api-version: '1.20'
 
 authors: [ Senssi. ]
+softdepend: [ Oraxen ]
 
 commands:
   narration:

@@ -51,7 +51,7 @@ public class IdentityCommand extends SimpleCommand {
     private static @NonNull ItemStack getInfoHead(Identity id) {
         ItemStack head = ItemUtils.createCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmVhNDY4NWQ1NWFlYzk5NTVkZDg2OWI0OTViMmY1YjJmYjc0MzU4NzYxM2JhNTg3OTYwYzNhM2Q2NWYyNGE4YiJ9fX0=");
         ItemFormatter.setName(head, "Informations de " + id.getPlayer().getDisplayName());
-        ItemFormatter.setDescription(head, "Nom : " + id.nom + "\\nPrénom : " + id.prenom + "\\nÂge : " + id.age + "\\nOrigine : " + id.origine);
+        ItemFormatter.setDescription(head, "Nom : " + id.nom + "\nPrénom : " + id.prenom + "\nÂge : " + id.age + "\nOrigine : " + id.origine);
         ItemFormatter.updateItemFormatting(head);
         return head;
     }
@@ -102,7 +102,7 @@ public class IdentityCommand extends SimpleCommand {
 
         gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).asGuiItem());
         gui.setItem(2 + 9, infos);
-        gui.disableAllInteractions(); // Pas sûr que ça ne se fasse pas par défaut
+        gui.disableAllInteractions();
         return gui;
     }
 }
