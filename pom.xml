@@ -16,24 +16,55 @@
     </properties>
 
     <repositories>
-        <!-- Spigot Repo -->
+        <!-- Spigot snapshots only; Maven Central is available automatically for releases. -->
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <!-- NBT-API Repo -->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
-        </repository>
-        <!-- Jeff-Media (BlockData) -->
-        <repository>
-            <id>jeff-media-repo</id>
-            <url>https://hub.jeff-media.com/nexus/repository/maven-public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>oraxen</id>
             <url>https://repo.oraxen.com/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- Pour essayer de résoudre les problèmes -->
+
+        <repository>
+            <id>momirealms</id>
+            <url>https://repo.momirealms.net/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>gaby-tm</id>
+            <url>https://repo.gaby-tm.me/repository/maven-public/</url>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -70,6 +101,17 @@
             <artifactId>oraxen</artifactId>
             <version>1.217.0</version>
             <scope>provided</scope>
+            <exclusions>
+                <!-- On exclut les librairies dont les serveurs sont en panne (??)-->
+                <exclusion>
+                    <groupId>net.momirealms</groupId>
+                    <artifactId>antigrieflib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>me.gabytm.util</groupId>
+                    <artifactId>actions-spigot</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

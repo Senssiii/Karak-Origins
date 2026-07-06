@@ -62,16 +62,42 @@
   </build>
   <repositories>
     <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots />
       <id>spigotmc-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
     <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
       <id>codemc-repo</id>
       <url>https://repo.codemc.io/repository/maven-public/</url>
     </repository>
     <repository>
-      <id>jeff-media-repo</id>
-      <url>https://hub.jeff-media.com/nexus/repository/maven-public/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>oraxen</id>
+      <url>https://repo.oraxen.com/releases</url>
+    </repository>
+    <repository>
+      <releases />
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>momirealms</id>
+      <url>https://repo.momirealms.net/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <id>gaby-tm</id>
+      <url>https://repo.gaby-tm.me/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
     </repository>
   </repositories>
   <dependencies>
@@ -80,6 +106,22 @@
       <artifactId>spigot-api</artifactId>
       <version>1.20.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.th0rgal</groupId>
+      <artifactId>oraxen</artifactId>
+      <version>1.217.0</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>antigrieflib</artifactId>
+          <groupId>net.momirealms</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>actions-spigot</artifactId>
+          <groupId>me.gabytm.util</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <properties>

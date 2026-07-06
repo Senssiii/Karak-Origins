@@ -13,7 +13,6 @@ import fr.senssi.karakOrigins.commands.player.UseCommand;
 import fr.senssi.karakOrigins.item.KarakCustomItemRegistry;
 import fr.senssi.karakOrigins.listener.ChatListener;
 import fr.senssi.karakOrigins.listener.GUIOpener;
-import fr.senssi.karakOrigins.listener.ItemListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,7 +37,8 @@ public final class KarakOrigins extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ChatListener(instance), instance);
         pluginManager.registerEvents(new GUIOpener(), instance);
-        pluginManager.registerEvents(new ItemListener(), instance);
+        // Passage avec Oraxen hihi
+        // pluginManager.registerEvents(new ItemListener(), instance);
 
         KarakCustomItemRegistry.onEnable();
 
