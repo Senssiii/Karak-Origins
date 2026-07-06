@@ -1,4 +1,4 @@
-package fr.senssi.karakOrigins.mechanic;
+package fr.senssi.karakOrigins.mechanic.handgonne;
 
 import io.th0rgal.oraxen.mechanics.Mechanic;
 import io.th0rgal.oraxen.mechanics.MechanicConfigProperty;

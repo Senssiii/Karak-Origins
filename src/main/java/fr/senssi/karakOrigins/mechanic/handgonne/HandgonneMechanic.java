@@ -1,18 +1,24 @@
-package fr.senssi.karakOrigins.item;
+package fr.senssi.karakOrigins.mechanic.handgonne;
 
 import fr.senssi.karakOrigins.utils.Messenger;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.ArmeFeuKeys;
 import fr.senssi.karakOrigins.utils.keys.HandgonneKeys;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
+import io.th0rgal.oraxen.OraxenPlugin;
+import io.th0rgal.oraxen.api.OraxenItems;
+import io.th0rgal.oraxen.items.ItemBuilder;
+import io.th0rgal.oraxen.mechanics.Mechanic;
+import io.th0rgal.oraxen.mechanics.MechanicFactory;
 import org.bukkit.*;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
@@ -20,18 +26,23 @@ import org.bukkit.util.Vector;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 
-public class Handgonne extends KarakCustomItem {
-    public int maxRecharge = 5;
-    public int maxMunition = 1;
-    int damage = 3;
-    String rechargeId = "poudre_canon";
-    String munitionId = "balle";
+public class HandgonneMechanic extends Mechanic {
+    public static final NamespacedKey KEY = new NamespacedKey(OraxenPlugin.get(), "damage_multiplier");
+    public final int maxRecharge;
+    private final double maxMunition;
+    private final int damage = 3;
+    private final String rechargeId = "poudre_canon";
+    private final String munitionId = "balle";
 
-    public Handgonne() {
-        super("handgonne");
+    public HandgonneMechanic(MechanicFactory factory, ConfigurationSection section) {
+        super(factory, section, (ItemBuilder item) ->
+                item.setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_munition", 1))
+                        .setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_recharge", 1))
+        );
+        this.maxMunition = section.getInt("max_munition", 1);
+        this.maxRecharge = section.getInt("max_recharge", 5);
     }
 
     private static @NonNull String getRechargeText(ItemStack self) {
@@ -85,7 +96,18 @@ public class Handgonne extends KarakCustomItem {
         ItemUtils.setItemNbt(self, ArmeFeuKeys.MUNITION_DESCRIPTION, munition_text);
     }
 
-    @Override
+    private boolean isRecharge(ItemStack item) {
+        return rechargeId.equals(OraxenItems.getIdByItem(item));
+    }
+
+    private boolean isMunition(ItemStack item) {
+        return munitionId.equals(OraxenItems.getIdByItem(item));
+    }
+
+    public double getMaxMunition() {
+        return maxMunition;
+    }
+
     public void onRightClick(PlayerInteractEvent event) {
         // On recharge en supposant que l'item soit dans la main principale
         event.setCancelled(true);
@@ -96,9 +118,8 @@ public class Handgonne extends KarakCustomItem {
 
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
         if (itemInOffHand.getAmount() == 0) return;
-        String itemOffHandId = ItemUtils.getString(itemInOffHand, NBTKeys.CRAFT_ID);
 
-        if (Objects.equals(itemOffHandId, rechargeId)) {
+        if (isRecharge(itemInOffHand)) {
             int amount = itemInOffHand.getAmount();
             if (poudre + 1 > maxRecharge) return;
             Messenger.sendPersonnalNarrationMessage("Vous rechargez l'arme...", player);
@@ -107,7 +128,8 @@ public class Handgonne extends KarakCustomItem {
 
             ItemUtils.setItemNbt(handgonne, HandgonneKeys.RECHARGE, poudre + 1);
             updateCustomFormatting(handgonne);
-        } else if (Objects.equals(itemOffHandId, munitionId)) {
+        } else if (isMunition(itemInOffHand)) {
+
             int amount = itemInOffHand.getAmount();
             if (munition + 1 > maxMunition) return;
             itemInOffHand.setAmount(amount - 1);
@@ -118,7 +140,6 @@ public class Handgonne extends KarakCustomItem {
         }
     }
 
-    @Override
     public void onLeftClick(PlayerInteractEvent event) {
         event.setCancelled(true);
         Player player = event.getPlayer();
@@ -250,17 +271,6 @@ public class Handgonne extends KarakCustomItem {
         );
     }
 
-    @Override
-    public void onEquip(PlayerInteractEvent event) {
-
-    }
-
-    @Override
-    public void onHit(EntityDamageByEntityEvent event) {
-        // Juste un coup de bâton pas besoin de faire plus
-    }
-
-    @Override
     public void updateCustomFormatting(ItemStack self) {
         setCustomDescrition(self);
 

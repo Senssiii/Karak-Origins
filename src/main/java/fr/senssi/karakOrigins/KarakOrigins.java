@@ -10,9 +10,7 @@ import fr.senssi.karakOrigins.commands.mj.item.ItemAttrCommand;
 import fr.senssi.karakOrigins.commands.mj.item.ItemFormatCommand;
 import fr.senssi.karakOrigins.commands.mj.item.SetItemMessageCommand;
 import fr.senssi.karakOrigins.commands.player.UseCommand;
-import fr.senssi.karakOrigins.item.KarakCustomItemRegistry;
 import fr.senssi.karakOrigins.listener.ChatListener;
-import fr.senssi.karakOrigins.listener.GUIOpener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,11 +34,9 @@ public final class KarakOrigins extends JavaPlugin {
         commandManager.register(new TestCommand());
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ChatListener(instance), instance);
-        pluginManager.registerEvents(new GUIOpener(), instance);
+        //pluginManager.registerEvents(new GUIOpener(), instance);
         // Passage avec Oraxen hihi
         // pluginManager.registerEvents(new ItemListener(), instance);
-
-        KarakCustomItemRegistry.onEnable();
 
     }
 

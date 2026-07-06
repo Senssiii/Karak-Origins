@@ -1,7 +1,5 @@
 package fr.senssi.karakOrigins.utils.items;
 
-import fr.senssi.karakOrigins.item.KarakCustomItem;
-import fr.senssi.karakOrigins.item.KarakCustomItemRegistry;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemFlag;
