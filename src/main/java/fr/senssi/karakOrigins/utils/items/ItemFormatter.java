@@ -50,14 +50,7 @@ public class ItemFormatter {
      * @param itemStack L'objet que l'on veut update
      */
     public static void updateItemFormatting(ItemStack itemStack) {
-        String itemId = ItemUtils.getString(itemStack, NBTKeys.CRAFT_ID);
-        KarakCustomItem customItem = KarakCustomItemRegistry.items.get(itemId);
-        if (customItem == null) {
-            updateDescription(itemStack);
-        } else {
-            customItem.updateCustomFormatting(itemStack);
-        }
-
+        updateDescription(itemStack);
         updateNom(itemStack);
     }
 
