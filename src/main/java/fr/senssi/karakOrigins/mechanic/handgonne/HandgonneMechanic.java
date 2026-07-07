@@ -29,20 +29,20 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class HandgonneMechanic extends Mechanic {
-    public static final NamespacedKey KEY = new NamespacedKey(OraxenPlugin.get(), "damage_multiplier");
+    public static final NamespacedKey KEY = new NamespacedKey(OraxenPlugin.get(), "handgonne");
     public final int maxRecharge;
     private final double maxMunition;
     private final int damage = 3;
-    private final String rechargeId = "poudre_canon";
+    private final String chargeId = "poudre_canon";
     private final String munitionId = "balle";
 
     public HandgonneMechanic(MechanicFactory factory, ConfigurationSection section) {
         super(factory, section, (ItemBuilder item) ->
                 item.setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_munition", 1))
-                        .setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_recharge", 1))
+                        .setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_charge", 1))
         );
         this.maxMunition = section.getInt("max_munition", 1);
-        this.maxRecharge = section.getInt("max_recharge", 5);
+        this.maxRecharge = section.getInt("max_charge", 5);
     }
 
     private static @NonNull String getRechargeText(ItemStack self) {
@@ -97,7 +97,7 @@ public class HandgonneMechanic extends Mechanic {
     }
 
     private boolean isRecharge(ItemStack item) {
-        return rechargeId.equals(OraxenItems.getIdByItem(item));
+        return chargeId.equals(OraxenItems.getIdByItem(item));
     }
 
     private boolean isMunition(ItemStack item) {

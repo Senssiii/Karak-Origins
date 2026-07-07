@@ -26,7 +26,8 @@ public class HandgonneMechanicFactory extends MechanicFactory {
     @Override
     public @NotNull List<MechanicConfigProperty> getConfigSchema() {
         return List.of(
-                MechanicConfigProperty.decimal("multiplier", "Damage multiplier applied on hit", 1.0, 0.0)
+                MechanicConfigProperty.integer("max_munition", "Le nombre maximum de balles dans une arme", 64, 1),
+                MechanicConfigProperty.integer("max_charge", "Le nombre maximum de poudre dans une arme", 64, 1)
         );
     }
 }

@@ -11,6 +11,7 @@ import fr.senssi.karakOrigins.commands.mj.item.ItemFormatCommand;
 import fr.senssi.karakOrigins.commands.mj.item.SetItemMessageCommand;
 import fr.senssi.karakOrigins.commands.player.UseCommand;
 import fr.senssi.karakOrigins.listener.ChatListener;
+import fr.senssi.karakOrigins.mechanic.KarakOraxenMechanics;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +38,8 @@ public final class KarakOrigins extends JavaPlugin {
         //pluginManager.registerEvents(new GUIOpener(), instance);
         // Passage avec Oraxen hihi
         // pluginManager.registerEvents(new ItemListener(), instance);
-
+        KarakOraxenMechanics mechanicsPlugin = new KarakOraxenMechanics();
+        mechanicsPlugin.onEnable();
     }
 
     @Override
