@@ -2,7 +2,6 @@ package fr.senssi.karakOrigins.mechanic.textitem;
 
 import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.utils.Messenger;
-import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import io.th0rgal.oraxen.items.ItemBuilder;
 import io.th0rgal.oraxen.mechanics.Mechanic;
@@ -41,7 +40,7 @@ public class TextItemMechanic extends Mechanic {
     }
 
     private String getMessage(ItemStack item) {
-        return ItemUtils.getString(item, NBTKeys.MESSAGE);
+        return item.getPersistentDataContainer().get(MESSAGE_KEY, PersistentDataType.STRING);
     }
 
     /**
