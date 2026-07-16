@@ -7,7 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNullElseGet;
 
 public class ItemFormatter {
     /**
@@ -84,10 +85,9 @@ public class ItemFormatter {
     private static void updateNom(ItemStack s, String str) {
         ItemMeta itemMeta = s.getItemMeta();
         String name = ChatColor.GRAY + "";
-        name += Objects.requireNonNullElseGet(str, () -> itemMeta.getLocalizedName());
+        // S'il n'y a pas de nom définit plus tôt, on prend le nom de base pour le mettre dans les tags.
+        name += requireNonNullElseGet(str, itemMeta::getDisplayName);
 
-        if (ItemUtils.isTextItem(s))
-            name = "☆" + name;
 
         itemMeta.setDisplayName(name);
 

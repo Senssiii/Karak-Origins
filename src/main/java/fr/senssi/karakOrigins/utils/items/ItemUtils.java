@@ -3,9 +3,12 @@ package fr.senssi.karakOrigins.utils.items;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
+import fr.senssi.karakOrigins.KarakOrigins;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
 import java.util.function.Function;
@@ -37,15 +40,15 @@ public class ItemUtils {
     }
 
     public static void setItemNbt(ItemStack i, String key, String value) {
-        NBT.modify(i, nbt -> {
-            nbt.setString(key, value);
-        });
+        i.editPersistentDataContainer((persistentDataContainer -> {
+            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING, value);
+        }));
     }
 
     public static void setItemNbt(ItemStack i, String key, int value) {
-        NBT.modify(i, nbt -> {
-            nbt.setInteger(key, value);
-        });
+        i.editPersistentDataContainer((persistentDataContainer -> {
+            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.INTEGER, value);
+        }));
     }
 
     /**
