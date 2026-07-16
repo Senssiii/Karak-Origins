@@ -35,10 +35,6 @@ public class ItemUtils {
         return head;
     }
 
-    public static boolean isTextItem(ItemStack item) {
-        return NBT.get(item, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.hasTag("message"));
-    }
-
     public static void setItemNbt(ItemStack i, String key, String value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
             persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING, value);

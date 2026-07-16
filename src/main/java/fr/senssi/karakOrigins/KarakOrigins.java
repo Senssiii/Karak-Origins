@@ -5,7 +5,6 @@ import fr.senssi.karakOrigins.commands.mj.IdentityCommand;
 import fr.senssi.karakOrigins.commands.mj.NarrationCommand;
 import fr.senssi.karakOrigins.commands.mj.StopPlayerCommand;
 import fr.senssi.karakOrigins.commands.mj.TestCommand;
-import fr.senssi.karakOrigins.commands.mj.item.CraftIdCommand;
 import fr.senssi.karakOrigins.commands.mj.item.ItemFormatCommand;
 import fr.senssi.karakOrigins.commands.mj.item.SetItemMessageCommand;
 import fr.senssi.karakOrigins.commands.player.UseCommand;
@@ -26,17 +25,13 @@ public final class KarakOrigins extends JavaPlugin {
         commandManager.register(new NarrationCommand());
         commandManager.register(new ItemFormatCommand());
         commandManager.register(new IdentityCommand());
-        commandManager.register(new CraftIdCommand());
         commandManager.register(new SetItemMessageCommand());
         commandManager.register(new UseCommand());
-        commandManager.register(new ItemAttrCommand());
 
         commandManager.register(new TestCommand());
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new ChatListener(instance), instance);
-        //pluginManager.registerEvents(new GUIOpener(), instance);
-        // Passage avec Oraxen hihi
-        // pluginManager.registerEvents(new ItemListener(), instance);
+
         KarakOraxenMechanics mechanicsPlugin = new KarakOraxenMechanics();
         mechanicsPlugin.onEnable();
     }

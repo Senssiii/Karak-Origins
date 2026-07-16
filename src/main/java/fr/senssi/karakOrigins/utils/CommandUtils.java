@@ -23,13 +23,13 @@ public class CommandUtils {
      * Retire les ignore- premier éléments du tableau.
      *
      * @param args   Le tableau dont on veut une copie réduite
-     * @param ignore Le nombre d'objet à supprimer de la liste
-     * @return
+     * @param ignore Le nombre d'objets à supprimer de la liste
+     * @return Un String composé des $|args| - ignore$ éléments dans le string séparé d'un " "
      */
     public static String argsToString(String[] args, int ignore) {
         StringBuilder out = new StringBuilder();
         for (int i = ignore; i < args.length; i++) {
-            if (out.length() > 0) {
+            if (!out.isEmpty()) {
                 out.append(" ");
             }
             out.append(args[i]);
