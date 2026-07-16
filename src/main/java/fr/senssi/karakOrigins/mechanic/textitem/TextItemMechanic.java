@@ -11,7 +11,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class TextItemMechanic extends Mechanic {
@@ -51,10 +50,10 @@ public class TextItemMechanic extends Mechanic {
      * @return Un nouvel item avec le message incorporé à l'intérieur
      */
     public void setMessage(ItemStack item, String message) {
-        ItemMeta meta = item.getItemMeta(); // Si ça fonctionne il faut changer toutes les utilisations des fonctions dans le utils
-        meta.getPersistentDataContainer().set(MESSAGE_KEY, PersistentDataType.STRING, message);
-        item.setItemMeta(meta);
-        
+        // ça va au final c'est pas si long
+        item.editPersistentDataContainer((persistentDataContainer) -> {
+            persistentDataContainer.set(MESSAGE_KEY, PersistentDataType.STRING, message);
+        });
     }
 
     public void onUse(Player player, ItemStack item) {

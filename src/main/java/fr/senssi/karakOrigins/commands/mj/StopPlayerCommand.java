@@ -23,7 +23,7 @@ public class StopPlayerCommand extends SimpleCommand {
         Player target = sender.getServer().getPlayer(args[0]);
 
         Messenger.sendAdminMessage("Vous avez été arrêté !", target);
-        Messenger.log("Joueur " + target.getDisplayName() + "arrêté par " + sender.getName(), sender.getServer());
+        Messenger.log("Joueur " + target.getName() + "arrêté par " + sender.getName(), sender.getServer());
         target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30 * 20, 0));
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 30 * 20, 0));
     }
