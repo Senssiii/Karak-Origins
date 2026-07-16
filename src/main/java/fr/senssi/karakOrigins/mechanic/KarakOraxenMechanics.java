@@ -2,12 +2,14 @@ package fr.senssi.karakOrigins.mechanic;
 
 import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.mechanic.handgonne.HandgonneMechanicFactory;
+import fr.senssi.karakOrigins.mechanic.textitem.TextItemMechanicFactory;
 import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.api.OraxenItems;
 import io.th0rgal.oraxen.api.events.OraxenNativeMechanicsRegisteredEvent;
 import io.th0rgal.oraxen.mechanics.MechanicsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -19,8 +21,9 @@ public class KarakOraxenMechanics implements Listener {
 
     @EventHandler
     public void onMechanicsRegistered(OraxenNativeMechanicsRegisteredEvent event) {
-        ConfigurationSection section = OraxenPlugin.get().getResourceManager()
-                .getMechanics().getConfigurationSection("handgonne");
+        YamlConfiguration mechanics = OraxenPlugin.get().getResourceManager().getMechanics();
+
+        ConfigurationSection section = mechanics.getConfigurationSection("handgonne");
         if (section == null) return;
 
         boolean enabled = section.getBoolean("enabled", true);
@@ -29,6 +32,13 @@ public class KarakOraxenMechanics implements Listener {
                 new HandgonneMechanicFactory(KarakOrigins.instance, section),
                 enabled
         );
+
+        section = mechanics.getConfigurationSection("textitem");
+        if (section == null) return;
+        enabled = section.getBoolean("enabled", true);
+        MechanicsManager.registerMechanicFactory("textitem",
+                new TextItemMechanicFactory(KarakOrigins.instance, section),
+                enabled);
 
         // Re-parse items so the new mechanic is applied.
         OraxenItems.loadItems();

@@ -1,13 +1,17 @@
 package fr.senssi.karakOrigins.commands.player;
 
 import fr.senssi.karakOrigins.commands.SimpleCommand;
-import fr.senssi.karakOrigins.item.TextItem;
-import fr.senssi.karakOrigins.utils.items.ItemUtils;
+import fr.senssi.karakOrigins.mechanic.textitem.TextItemMechanic;
+import io.th0rgal.oraxen.api.OraxenItems;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static fr.senssi.karakOrigins.mechanic.textitem.TextItemMechanicFactory.textItemMechanicFactory;
+
 public class UseCommand extends SimpleCommand {
+
+
     public UseCommand() {
         super("use", true);
     }
@@ -17,11 +21,13 @@ public class UseCommand extends SimpleCommand {
      */
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Player player = (Player) sender;
-        ItemStack item = player.getInventory().getItemInMainHand();
-        if (ItemUtils.isTextItem(item)) {
-            TextItem textItem = new TextItem(item);
-            textItem.onUse(player);
-        }
+        ItemStack itemUsed = ((Player) sender).getInventory().getItemInMainHand();
+        if (itemUsed.getType().isAir()) return;
+
+        if (!OraxenItems.exists(itemUsed)) return;
+        TextItemMechanic mechanic = (TextItemMechanic) textItemMechanicFactory.getMechanic(itemUsed);
+        if (mechanic == null) return;
+
+        mechanic.onUse((Player) sender, itemUsed);
     }
 }

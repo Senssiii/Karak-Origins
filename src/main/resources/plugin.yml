@@ -3,7 +3,7 @@ description: $description
 version: '${version}'
 
 main: fr.senssi.karakOrigins.KarakOrigins
-api-version: '1.20'
+api-version: '26.1.2'
 
 authors: [ Senssi. ]
 softdepend: [ Oraxen ]

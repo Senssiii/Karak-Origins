@@ -1,11 +1,11 @@
 package fr.senssi.karakOrigins.mechanic.handgonne;
 
+import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.utils.Messenger;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.ArmeFeuKeys;
 import fr.senssi.karakOrigins.utils.keys.HandgonneKeys;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
-import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.api.OraxenItems;
 import io.th0rgal.oraxen.items.ItemBuilder;
 import io.th0rgal.oraxen.mechanics.Mechanic;
@@ -23,13 +23,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Arrays;
 import java.util.Random;
 
 public class HandgonneMechanic extends Mechanic {
-    public static final NamespacedKey KEY = new NamespacedKey(OraxenPlugin.get(), "handgonne");
+    public static final NamespacedKey MAX_MUNITION_KEY = new NamespacedKey(KarakOrigins.instance, "max_munition");
+    public static final NamespacedKey MAX_CHARGE_KEY = new NamespacedKey(KarakOrigins.instance, "max_charge");
     public final int maxRecharge;
     private final double maxMunition;
     private final int damage = 3;
@@ -38,14 +38,14 @@ public class HandgonneMechanic extends Mechanic {
 
     public HandgonneMechanic(MechanicFactory factory, ConfigurationSection section) {
         super(factory, section, (ItemBuilder item) ->
-                item.setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_munition", 1))
-                        .setCustomTag(KEY, PersistentDataType.INTEGER, section.getInt("max_charge", 1))
+                item.setCustomTag(MAX_MUNITION_KEY, PersistentDataType.INTEGER, section.getInt("max_munition", 1))
+                        .setCustomTag(MAX_CHARGE_KEY, PersistentDataType.INTEGER, section.getInt("max_charge", 1))
         );
         this.maxMunition = section.getInt("max_munition", 1);
         this.maxRecharge = section.getInt("max_charge", 5);
     }
 
-    private static @NonNull String getRechargeText(ItemStack self) {
+    private static String getRechargeText(ItemStack self) {
         String recharge_text = "";
 
         int poudre = ItemUtils.getInt(self, HandgonneKeys.RECHARGE);
@@ -71,7 +71,7 @@ public class HandgonneMechanic extends Mechanic {
         return recharge_text;
     }
 
-    private static @NonNull String getMunitionText(ItemStack self) {
+    private static String getMunitionText(ItemStack self) {
         String munition_text = "";
         int munition = ItemUtils.getInt(self, HandgonneKeys.MUNITION);
         switch (munition) {
@@ -226,7 +226,7 @@ public class HandgonneMechanic extends Mechanic {
 
     private void setEffect(Player player) {
         PotionEffect slowness = new PotionEffect(
-                PotionEffectType.SLOW,
+                PotionEffectType.SLOWNESS,
                 15 * 20, // 15 secondes
                 0                // Lenteur I
         );
@@ -263,7 +263,7 @@ public class HandgonneMechanic extends Mechanic {
         );
 
         world.spawnParticle(
-                Particle.SMOKE_LARGE,
+                Particle.CAMPFIRE_COSY_SMOKE,
                 spawnLocation,
                 10,
                 0.05, 0.05, 0.05,

@@ -10,7 +10,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NonNull;
 
 public class SouffletGUI {
     public static Gui getGui() {
@@ -19,7 +18,7 @@ public class SouffletGUI {
         Gui gui = Gui.gui().title(Component.text("Soufflet de forge")).rows(1)
                 .create();
         GuiUtils.fillWhiteGlassPaneGUI(gui);
-        
+
         ItemStack head = getSouffletHead();
 
         gui.setItem(2, ItemBuilder.from(head).asGuiItem(event -> {
@@ -46,7 +45,7 @@ public class SouffletGUI {
         return gui;
     }
 
-    private static @NonNull ItemStack getSouffletHead() {
+    private static ItemStack getSouffletHead() {
         ItemStack head = ItemUtils.createCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODU0YjRhYWI2MWRiZTBmOTI4NGQ0MjU4NjcwODkzYjU1N2MwOGIzMjY3NmIzNGM4NTkzMTU4MjZmY2UxNTU2ZiJ9fX0=");
         ItemFormatter.setName(head, "Soufflet");
         ItemFormatter.setDescription(head, "Soufflez pour réchauffer");

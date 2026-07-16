@@ -60,4 +60,5 @@ public class ItemUtils {
     public static int getInt(ItemStack item, String key) {
         return NBT.get(item, (Function<ReadableItemNBT, Integer>) nbt -> nbt.getInteger(key));
     }
+
 }

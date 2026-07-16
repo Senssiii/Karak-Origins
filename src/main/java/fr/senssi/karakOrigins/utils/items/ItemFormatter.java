@@ -19,7 +19,7 @@ public class ItemFormatter {
         itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
         itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemMeta.addItemFlags(ItemFlag.HIDE_DYE);
     }
 
@@ -55,6 +55,7 @@ public class ItemFormatter {
     }
 
     private static void updateDescription(ItemStack itemStack) {
+        // A rajouter : si l'item n'a pas de tag description alors on place dans le tag description le String qu'il a en lore actuellement sur la première ligne, ça devrait suffir.
         String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
         updateLore(itemStack, description);
     }

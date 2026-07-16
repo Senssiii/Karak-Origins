@@ -5,6 +5,7 @@ public class NBTKeys {
     public static final String NOM_ITEM = "nom_item";
     public static final String DESCRIPTION = "description";
     public static final String MESSAGE = "message";
+    public static final String SEALED = "sealed";
 
     public static final String PRENOM = "prenom";
     public static final String NOM = "nom";

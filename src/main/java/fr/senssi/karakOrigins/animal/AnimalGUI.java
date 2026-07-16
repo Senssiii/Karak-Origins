@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NonNull;
 
 import static fr.senssi.karakOrigins.utils.GuiUtils.fillWhiteGlassPaneGUI;
 
@@ -60,7 +59,7 @@ public class AnimalGUI {
         gui.setItem(slot, item);
     }
 
-    private static @NonNull GuiItem getButtonRename(Player player) {
+    private static GuiItem getButtonRename(Player player) {
         ItemStack item = new ItemStack(Material.NAME_TAG);
 
         ItemFormatter.setName(item, "Renommer l'animal");

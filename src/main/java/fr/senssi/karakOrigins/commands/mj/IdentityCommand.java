@@ -15,7 +15,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +47,7 @@ public class IdentityCommand extends SimpleCommand {
         }
     }
 
-    private static @NonNull ItemStack getInfoHead(Identity id) {
+    private static ItemStack getInfoHead(Identity id) {
         ItemStack head = ItemUtils.createCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmVhNDY4NWQ1NWFlYzk5NTVkZDg2OWI0OTViMmY1YjJmYjc0MzU4NzYxM2JhNTg3OTYwYzNhM2Q2NWYyNGE4YiJ9fX0=");
         ItemFormatter.setName(head, "Informations de " + id.getPlayer().getDisplayName());
         ItemFormatter.setDescription(head, "Nom : " + id.nom + "\nPrénom : " + id.prenom + "\nÂge : " + id.age + "\nOrigine : " + id.origine);
