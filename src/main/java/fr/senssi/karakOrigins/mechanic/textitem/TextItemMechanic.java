@@ -2,6 +2,7 @@ package fr.senssi.karakOrigins.mechanic.textitem;
 
 import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.utils.Messenger;
+import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import io.th0rgal.oraxen.items.ItemBuilder;
 import io.th0rgal.oraxen.mechanics.Mechanic;
@@ -15,14 +16,14 @@ import org.bukkit.persistence.PersistentDataType;
 public class TextItemMechanic extends Mechanic {
     public static final NamespacedKey MESSAGE_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.MESSAGE);
 
-//    A MechanicFactory is created once per mechanic type during plugin load or reload and stores shared state, registers listeners,
-//    and tracks which items use that mechanic. A Mechanic instance is created separately for each item that defines the mechanic in its
-//    Mechanics: section and stores that item’s parsed settings.
-//
-//    At runtime, the listener uses the factory to retrieve the Mechanic belonging to the current item and then reads its item-specific configuration.
-//    In short, the flow is Mechanics: in the item config → one shared MechanicFactory for that mechanic ID → one Mechanic instance per configured item.
+    //    A MechanicFactory is created once per mechanic type during plugin load or reload and stores shared state, registers listeners,
+    //    and tracks which items use that mechanic. A Mechanic instance is created separately for each item that defines the mechanic in its
+    //    Mechanics: section and stores that item’s parsed settings.
+    //
+    //    At runtime, the listener uses the factory to retrieve the Mechanic belonging to the current item and then reads its item-specific configuration.
+    //    In short, the flow is Mechanics: in the item config → one shared MechanicFactory for that mechanic ID → one Mechanic instance per configured item.
 
-    //setCustomTag records the tag in the builder's persistentDataMap, which regen()/build() then writes into every generated item's
+    // setCustomTag records the tag in the builder's persistentDataMap, which regen()/build() then writes into every generated item's
     // PersistentDataContainer. If you need to modify an already-built ItemStack at runtime (outside parse time), use ItemUtils.editItemMeta(...)
     // and set the tag on the meta's PDC there instead.
 
@@ -33,14 +34,14 @@ public class TextItemMechanic extends Mechanic {
      * @param section La section dans les fichiers de config
      */
     public TextItemMechanic(MechanicFactory factory, ConfigurationSection section) {
-        super(factory, section, (ItemBuilder item) ->
+        super(factory, section, (ItemBuilder item) -> // Modifiera les mêmes données au final que le setter du setMessage.
                 item.setCustomTag(MESSAGE_KEY, PersistentDataType.STRING,
                         section.getString(NBTKeys.MESSAGE))
         );
     }
 
     private String getMessage(ItemStack item) {
-        return item.getPersistentDataContainer().get(MESSAGE_KEY, PersistentDataType.STRING);
+        return ItemUtils.getString(item, NBTKeys.MESSAGE);
     }
 
     /**
@@ -50,9 +51,7 @@ public class TextItemMechanic extends Mechanic {
      */
     public void setMessage(ItemStack item, String message) {
         // ça va au final c'est pas si long
-        item.editPersistentDataContainer((persistentDataContainer) -> {
-            persistentDataContainer.set(MESSAGE_KEY, PersistentDataType.STRING, message);
-        });
+        ItemUtils.setItemNbt(item, NBTKeys.MESSAGE, message);
     }
 
     public void onUse(Player player, ItemStack item) {

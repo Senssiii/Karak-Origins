@@ -2,7 +2,6 @@ package fr.senssi.karakOrigins.utils.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
-import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import fr.senssi.karakOrigins.KarakOrigins;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -11,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
-import java.util.function.Function;
 
 public class ItemUtils {
 
@@ -53,11 +51,11 @@ public class ItemUtils {
      * @return La valeur associée à la clé.
      */
     public static String getString(ItemStack item, String key) {
-        return NBT.get(item, (Function<ReadableItemNBT, String>) nbt -> nbt.getString(key));
+        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING);
     }
 
     public static int getInt(ItemStack item, String key) {
-        return NBT.get(item, (Function<ReadableItemNBT, Integer>) nbt -> nbt.getInteger(key));
+        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.INTEGER);
     }
 
 }
