@@ -45,6 +45,12 @@ public class ItemUtils {
         }));
     }
 
+    public static void setItemNbt(ItemStack i, String key, boolean value) {
+        i.editPersistentDataContainer((persistentDataContainer -> {
+            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.BOOLEAN, value);
+        }));
+    }
+
     /**
      * Récupère le String attaché.
      *
@@ -54,8 +60,13 @@ public class ItemUtils {
         return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING);
     }
 
+    /// @return Erreur quand il n'y a pas de valeur associée.
     public static int getInt(ItemStack item, String key) {
         return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.INTEGER);
     }
 
+    /// @return Erreur quand il n'y a pas de valeur associée.
+    public static boolean getBoolean(ItemStack item, String key) {
+        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.BOOLEAN);
+    }
 }

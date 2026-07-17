@@ -1,12 +1,16 @@
 package fr.senssi.karakOrigins.utils.items;
 
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Collections;
+import java.util.List;
 
 import static java.util.Objects.requireNonNullElseGet;
 
@@ -55,12 +59,31 @@ public class ItemFormatter {
         updateNom(itemStack);
     }
 
+    /// @param itemStack L'objet dont le tooltip sera modifié en fonction de sa description dans les NBT
     private static void updateDescription(ItemStack itemStack) {
-        // A rajouter : si l'item n'a pas de tag description alors on place dans le tag description le String qu'il a en lore actuellement sur la première ligne, ça devrait suffir.
-        String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
+        String description = getDescriptionOrSetNew(itemStack);
+
         updateLore(itemStack, description);
     }
 
+    /// @param itemStack L'item dont on cherche la description
+    /// Si aucune valeur de description n'avait été donné, on en set une par rapport à ce qui est déjà dans le lore.
+    private static @NonNull String getDescriptionOrSetNew(ItemStack itemStack) {
+        String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
+        if (description == null || description.isEmpty()) {
+            ItemMeta meta = itemStack.getItemMeta();
+            List<Component> lore = meta.lore();
+            if (meta.hasLore() && lore != null) {
+                description = PlainTextComponentSerializer.plainText().serialize(lore.getFirst());
+            } else {
+                description = "";
+            }
+            ItemUtils.setItemNbt(itemStack, NBTKeys.DESCRIPTION, description);
+        }
+        return description;
+    }
+
+    /// Change l'affichage du nom sur l'item
     private static void updateNom(ItemStack itemStack) {
         String nom = ItemUtils.getString(itemStack, NBTKeys.NOM_ITEM);
         updateNom(itemStack, nom);
