@@ -27,9 +27,9 @@ public class AnimalIdentity {
     public AnimalIdentity(Entity entity) {
         this(
                 entity,
-                EntityNbtManager.getStringData(entity, AnimalKeys.NOM),
-                EntityNbtManager.getStringData(entity, AnimalKeys.RACE),
-                AnimalManager.stringToGender(EntityNbtManager.getStringData(entity, AnimalKeys.SEXE))
+                EntityNbtManager.getString(entity, AnimalKeys.NOM),
+                EntityNbtManager.getString(entity, AnimalKeys.RACE),
+                AnimalManager.stringToGender(EntityNbtManager.getString(entity, AnimalKeys.SEXE))
         );
     }
 

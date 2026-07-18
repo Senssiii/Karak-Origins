@@ -1,9 +1,8 @@
 package fr.senssi.karakOrigins.identity;
 
+import fr.senssi.karakOrigins.utils.EntityNbtManager;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import org.bukkit.entity.Player;
-
-import static fr.senssi.karakOrigins.utils.EntityNbtManager.getStringData;
 
 public class IdentityManager {
     // For reading/storing custom data on (block-)entities, you should use methods that end with PersistentData.
@@ -15,10 +14,10 @@ public class IdentityManager {
     }
 
     public static Identity getIdentity(Player p) {
-        String age = getStringData(p, NBTKeys.AGE);
-        String nom = getStringData(p, NBTKeys.NOM);
-        String prenom = getStringData(p, NBTKeys.PRENOM);
-        String origine = getStringData(p, NBTKeys.ORIGINE);
+        String age = EntityNbtManager.getString(p, NBTKeys.AGE);
+        String nom = EntityNbtManager.getString(p, NBTKeys.NOM);
+        String prenom = EntityNbtManager.getString(p, NBTKeys.PRENOM);
+        String origine = EntityNbtManager.getString(p, NBTKeys.ORIGINE);
         if (age == null || nom == null || prenom == null || origine == null || age.isEmpty() || nom.isEmpty() || prenom.isEmpty()) {
             return setDefaultIdentity(p);
         }

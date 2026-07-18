@@ -7,6 +7,11 @@ public class NBTKeys {
     public static final String MESSAGE = "message";
     public static final String SEALED = "sealed";
 
+    /// Le texte qu'on met sur l'item quand il est scellé
+    /// Exemple : seal = "de la maison Virali"
+    /// Lore : [Sceau de la maison Virali].
+    public static final String SEAL = "seal";
+
     public static final String PRENOM = "prenom";
     public static final String NOM = "nom";
     public static final String ORIGINE = "origine";

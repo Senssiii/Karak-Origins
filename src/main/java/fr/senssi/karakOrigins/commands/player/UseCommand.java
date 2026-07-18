@@ -4,6 +4,7 @@ import fr.senssi.karakOrigins.commands.SimpleCommand;
 import fr.senssi.karakOrigins.mechanic.sealeditem.SealedItemMechanic;
 import fr.senssi.karakOrigins.mechanic.textitem.TextItemMechanic;
 import fr.senssi.karakOrigins.utils.Messenger;
+import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import io.th0rgal.oraxen.api.OraxenItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -34,6 +35,7 @@ public class UseCommand extends SimpleCommand {
 
         ItemStack itemUsed = player.getInventory().getItemInMainHand();
         if (itemUsed.getType().isAir()) return;
+        ItemFormatter.updateItemFormatting(itemUsed); // On met à jour le format de l'item de base
 
         if (!OraxenItems.exists(itemUsed)) return;
         TextItemMechanic mechanic = (TextItemMechanic) textItemMechanicFactory.getMechanic(itemUsed);
@@ -47,6 +49,7 @@ public class UseCommand extends SimpleCommand {
         }
 
         mechanic.onUse(player, itemUsed);
+        ItemFormatter.updateItemFormatting(itemUsed);
     }
 
     /**
@@ -95,5 +98,6 @@ public class UseCommand extends SimpleCommand {
         }
 
         SealedItemMechanic.setSealed(itemEnMain, false);
+        ItemFormatter.updateItemFormatting(itemEnMain);
     }
 }

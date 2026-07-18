@@ -1,8 +1,8 @@
 package fr.senssi.karakOrigins.utils.items;
 
 public class SealedItemFormatter {
-    public String getSealedText(boolean isSealed) {
-        if (isSealed) return "L'objet est scellé.";
-        else return "L'objet à été ouvert, le sceau semble avoir été brisé";
+    public static String getSealedText(boolean isSealed, String sealText) {
+        if (isSealed) return "[Sceau %s]".formatted(sealText);
+        else return "[Sceau brisé %s]".formatted(sealText);
     }
 }

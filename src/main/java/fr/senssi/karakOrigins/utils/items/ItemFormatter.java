@@ -1,5 +1,6 @@
 package fr.senssi.karakOrigins.utils.items;
 
+import fr.senssi.karakOrigins.mechanic.sealeditem.SealedItemMechanic;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jspecify.annotations.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,14 +63,22 @@ public class ItemFormatter {
 
     /// @param itemStack L'objet dont le tooltip sera modifié en fonction de sa description dans les NBT
     private static void updateDescription(ItemStack itemStack) {
-        String description = getDescriptionOrSetNew(itemStack);
+        List<String> lore = new ArrayList<>();
+        String description = ChatColor.GRAY + getOrCreateDescription(itemStack);
+        lore.add(description);
 
-        updateLore(itemStack, description);
+        if (SealedItemMechanic.isSealedItem(itemStack)) {
+            boolean isSealed = SealedItemMechanic.isSealed(itemStack);
+            String sealedText = SealedItemMechanic.getSealText(itemStack);
+            lore.add(ChatColor.DARK_RED + SealedItemFormatter.getSealedText(isSealed, sealedText));
+        }
+
+        updateLore(itemStack, Collections.singletonList(description));
     }
 
     /// @param itemStack L'item dont on cherche la description
     /// Si aucune valeur de description n'avait été donné, on en set une par rapport à ce qui est déjà dans le lore.
-    private static @NonNull String getDescriptionOrSetNew(ItemStack itemStack) {
+    private static @NonNull String getOrCreateDescription(ItemStack itemStack) {
         String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
         if (description == null || description.isEmpty()) {
             ItemMeta meta = itemStack.getItemMeta();
@@ -90,15 +100,14 @@ public class ItemFormatter {
     }
 
     /**
-     * Met à jour le lore directement.
+     * Met le string en première ligne de la tooltip en effaçant le reste
      *
      * @param s   L'objet à modifier
      * @param str Le nouveau texte affiché
      */
-    private static void updateLore(ItemStack s, String str) {
+    private static void updateLore(ItemStack s, List<String> str) {
         ItemMeta itemMeta = s.getItemMeta();
-        String lore = ChatColor.DARK_GRAY + str;
-        itemMeta.setLore(Collections.singletonList(lore));
+        itemMeta.setLore(str);
 
         hideEveryInfos(itemMeta);
 

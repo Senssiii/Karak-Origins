@@ -12,7 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 public class SealedItemMechanic extends Mechanic {
-    public static final NamespacedKey KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.SEALED);
+    public static final NamespacedKey SEALED_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.SEALED);
+    public static final NamespacedKey SEAL_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.SEAL);
 
     /**
      * @param factory L'usine qu'on utilise en rapport avec cette mécanique
@@ -20,7 +21,8 @@ public class SealedItemMechanic extends Mechanic {
      */
     public SealedItemMechanic(MechanicFactory factory, ConfigurationSection section) {
         super(factory, section, (ItemBuilder item) ->
-                item.setCustomTag(KEY, PersistentDataType.BOOLEAN, section.getBoolean(NBTKeys.SEALED))
+                item.setCustomTag(SEALED_KEY, PersistentDataType.BOOLEAN, section.getBoolean(NBTKeys.SEALED))
+                        .setCustomTag(SEAL_KEY, PersistentDataType.STRING, section.getString(NBTKeys.SEAL))
         );
     }
 
@@ -35,6 +37,14 @@ public class SealedItemMechanic extends Mechanic {
 
     public static void setSealed(ItemStack i, boolean value) {
         ItemUtils.setItemNbt(i, NBTKeys.SEALED, value);
+    }
+
+    public static String getSealText(ItemStack i) {
+        return ItemUtils.getString(i, NBTKeys.SEAL);
+    }
+
+    public static String setSealText(ItemStack i, String text) {
+        ItemUtils.setItemNbt(i, NBTKeys.SEAL, text);
     }
 
 }
