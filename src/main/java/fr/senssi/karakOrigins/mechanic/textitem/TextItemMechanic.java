@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 public class TextItemMechanic extends Mechanic {
-    public static final NamespacedKey MESSAGE_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.MESSAGE);
+    public static final NamespacedKey MESSAGE_KEY = new NamespacedKey(KarakOrigins.plugin, NBTKeys.MESSAGE);
 
     //    A MechanicFactory is created once per mechanic type during plugin load or reload and stores shared state, registers listeners,
     //    and tracks which items use that mechanic. A Mechanic instance is created separately for each item that defines the mechanic in its

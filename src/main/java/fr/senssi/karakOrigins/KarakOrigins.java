@@ -14,12 +14,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KarakOrigins extends JavaPlugin {
-    public static KarakOrigins instance;
+    public static KarakOrigins plugin;
 
     @Override
     public void onEnable() {
-        instance = this;
-        CommandManager commandManager = new CommandManager(instance);
+        plugin = this;
+        CommandManager commandManager = new CommandManager(plugin);
 
         commandManager.register(new StopPlayerCommand());
         commandManager.register(new NarrationCommand());
@@ -30,7 +30,7 @@ public final class KarakOrigins extends JavaPlugin {
 
         commandManager.register(new TestCommand());
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new ChatListener(instance), instance);
+        pluginManager.registerEvents(new ChatListener(plugin), plugin);
 
         KarakOraxenMechanics mechanicsPlugin = new KarakOraxenMechanics();
         mechanicsPlugin.onEnable();

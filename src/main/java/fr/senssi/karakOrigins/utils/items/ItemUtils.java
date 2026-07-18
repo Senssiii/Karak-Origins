@@ -2,7 +2,6 @@ package fr.senssi.karakOrigins.utils.items;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
-import fr.senssi.karakOrigins.KarakOrigins;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +9,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
+
+import static fr.senssi.karakOrigins.KarakOrigins.plugin;
 
 public class ItemUtils {
 
@@ -35,19 +36,19 @@ public class ItemUtils {
 
     public static void setItemNbt(ItemStack i, String key, String value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING, value);
+            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.STRING, value);
         }));
     }
 
     public static void setItemNbt(ItemStack i, String key, int value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.INTEGER, value);
+            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.INTEGER, value);
         }));
     }
 
     public static void setItemNbt(ItemStack i, String key, boolean value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.BOOLEAN, value);
+            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.BOOLEAN, value);
         }));
     }
 
@@ -57,16 +58,20 @@ public class ItemUtils {
      * @return La valeur associée à la clé.
      */
     public static String getString(ItemStack item, String key) {
-        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING);
+        return item.getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.STRING);
     }
 
     /// @return Erreur quand il n'y a pas de valeur associée.
-    public static int getInt(ItemStack item, String key) {
-        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.INTEGER);
+    public static int getInt(ItemStack item, String key, int defaultValue) {
+        if (item == null || item.getType().isAir()) {
+            return defaultValue;
+        }
+        NamespacedKey namespacedKey = new NamespacedKey(plugin, key);
+        return item.getPersistentDataContainer().getOrDefault(namespacedKey, PersistentDataType.INTEGER, defaultValue);
     }
 
     /// @return Erreur quand il n'y a pas de valeur associée.
     public static boolean getBoolean(ItemStack item, String key) {
-        return item.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.BOOLEAN);
+        return item.getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.BOOLEAN);
     }
 }

@@ -28,8 +28,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class HandgonneMechanic extends Mechanic {
-    public static final NamespacedKey MAX_MUNITION_KEY = new NamespacedKey(KarakOrigins.instance, "max_munition");
-    public static final NamespacedKey MAX_CHARGE_KEY = new NamespacedKey(KarakOrigins.instance, "max_charge");
+    public static final NamespacedKey MAX_MUNITION_KEY = new NamespacedKey(KarakOrigins.plugin, "max_munition");
+    public static final NamespacedKey MAX_CHARGE_KEY = new NamespacedKey(KarakOrigins.plugin, "max_charge");
     public final int maxRecharge;
     private final double maxMunition;
     private final int damage = 3;
@@ -48,7 +48,7 @@ public class HandgonneMechanic extends Mechanic {
     private static String getRechargeText(ItemStack self) {
         String recharge_text = "";
 
-        int poudre = ItemUtils.getInt(self, HandgonneKeys.RECHARGE);
+        int poudre = ItemUtils.getInt(self, HandgonneKeys.RECHARGE, 0);
         switch (poudre) {
             case 0:
                 recharge_text += "Canon vide.";
@@ -73,7 +73,7 @@ public class HandgonneMechanic extends Mechanic {
 
     private static String getMunitionText(ItemStack self) {
         String munition_text = "";
-        int munition = ItemUtils.getInt(self, HandgonneKeys.MUNITION);
+        int munition = ItemUtils.getInt(self, HandgonneKeys.MUNITION, 0);
         switch (munition) {
             case 0:
                 munition_text += "Aucune balle insérée.";
@@ -108,20 +108,24 @@ public class HandgonneMechanic extends Mechanic {
         return maxMunition;
     }
 
+    public int getMaxRecharge() {
+        return maxRecharge;
+    }
+
     public void onRightClick(PlayerInteractEvent event) {
         // On recharge en supposant que l'item soit dans la main principale
         event.setCancelled(true);
         Player player = event.getPlayer();
         ItemStack handgonne = player.getInventory().getItemInMainHand();
-        int poudre = ItemUtils.getInt(handgonne, HandgonneKeys.RECHARGE);
-        int munition = ItemUtils.getInt(handgonne, HandgonneKeys.MUNITION);
+        int poudre = ItemUtils.getInt(handgonne, HandgonneKeys.RECHARGE, 0);
+        int munition = ItemUtils.getInt(handgonne, HandgonneKeys.MUNITION, 0);
 
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
         if (itemInOffHand.getAmount() == 0) return;
 
         if (isRecharge(itemInOffHand)) {
             int amount = itemInOffHand.getAmount();
-            if (poudre + 1 > maxRecharge) return;
+            if (poudre + 1 > getMaxRecharge()) return;
             Messenger.sendPersonnalNarrationMessage("Vous rechargez l'arme...", player);
 
             itemInOffHand.setAmount(amount - 1);
@@ -131,7 +135,7 @@ public class HandgonneMechanic extends Mechanic {
         } else if (isMunition(itemInOffHand)) {
 
             int amount = itemInOffHand.getAmount();
-            if (munition + 1 > maxMunition) return;
+            if (munition + 1 > getMaxMunition()) return;
             itemInOffHand.setAmount(amount - 1);
             Messenger.sendPersonnalNarrationMessage("Vous rechargez l'arme...", player);
 
@@ -146,8 +150,8 @@ public class HandgonneMechanic extends Mechanic {
         ItemStack handgonne = player.getInventory().getItemInMainHand();
 
         // On utilise les recharges
-        int poudre = ItemUtils.getInt(handgonne, HandgonneKeys.RECHARGE);
-        int munition = ItemUtils.getInt(handgonne, HandgonneKeys.MUNITION);
+        int poudre = ItemUtils.getInt(handgonne, HandgonneKeys.RECHARGE, 0);
+        int munition = ItemUtils.getInt(handgonne, HandgonneKeys.MUNITION, 0);
         if (poudre <= 0 || munition <= 0) return;
         ItemUtils.setItemNbt(handgonne, HandgonneKeys.MUNITION, 0);
         ItemUtils.setItemNbt(handgonne, HandgonneKeys.RECHARGE, 0);

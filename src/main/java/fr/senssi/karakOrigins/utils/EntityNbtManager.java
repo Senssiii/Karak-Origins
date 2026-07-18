@@ -11,14 +11,14 @@ public class EntityNbtManager {
 
     public static void setStringData(Entity entity, String key, String value) {
         PersistentDataContainer container = entity.getPersistentDataContainer();
-        container.set(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING, value);
+        container.set(new NamespacedKey(KarakOrigins.plugin, key), PersistentDataType.STRING, value);
     }
 
     public static String getString(Player p, String key) {
-        return p.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING);
+        return p.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.plugin, key), PersistentDataType.STRING);
     }
 
     public static String getString(Entity entity, String key) {
-        return entity.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.instance, key), PersistentDataType.STRING);
+        return entity.getPersistentDataContainer().get(new NamespacedKey(KarakOrigins.plugin, key), PersistentDataType.STRING);
     }
 }

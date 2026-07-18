@@ -32,7 +32,7 @@ public class SouffletGUI {
 
         gui.setItem(6, ItemBuilder.from(Material.AIR).asGuiItem(event -> {
             event.setCancelled(false);
-            Bukkit.getScheduler().runTask(KarakOrigins.instance, () -> {
+            Bukkit.getScheduler().runTask(KarakOrigins.plugin, () -> {
                 ItemStack itemInSlot = event.getInventory().getItem(6);
 
                 if (itemInSlot != null && itemInSlot.getType() != Material.AIR) {

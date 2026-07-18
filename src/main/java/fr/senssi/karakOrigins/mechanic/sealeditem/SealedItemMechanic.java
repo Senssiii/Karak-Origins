@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 public class SealedItemMechanic extends Mechanic {
-    public static final NamespacedKey SEALED_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.SEALED);
-    public static final NamespacedKey SEAL_KEY = new NamespacedKey(KarakOrigins.instance, NBTKeys.SEAL);
+    public static final NamespacedKey SEALED_KEY = new NamespacedKey(KarakOrigins.plugin, NBTKeys.SEALED);
+    public static final NamespacedKey SEAL_KEY = new NamespacedKey(KarakOrigins.plugin, NBTKeys.SEAL);
 
     /**
      * @param factory L'usine qu'on utilise en rapport avec cette mécanique
@@ -43,7 +43,7 @@ public class SealedItemMechanic extends Mechanic {
         return ItemUtils.getString(i, NBTKeys.SEAL);
     }
 
-    public static String setSealText(ItemStack i, String text) {
+    public static void setSealText(ItemStack i, String text) {
         ItemUtils.setItemNbt(i, NBTKeys.SEAL, text);
     }
 

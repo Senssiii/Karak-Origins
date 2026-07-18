@@ -17,7 +17,7 @@ import org.bukkit.event.Listener;
 public class KarakOraxenMechanics implements Listener {
 
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, KarakOrigins.instance);
+        Bukkit.getPluginManager().registerEvents(this, KarakOrigins.plugin);
     }
 
     @EventHandler
@@ -30,7 +30,7 @@ public class KarakOraxenMechanics implements Listener {
         boolean enabled = section.getBoolean("enabled", true);
         MechanicsManager.registerMechanicFactory(
                 "handgonne",
-                new HandgonneMechanicFactory(KarakOrigins.instance, section),
+                new HandgonneMechanicFactory(KarakOrigins.plugin, section),
                 enabled
         );
 
@@ -38,14 +38,14 @@ public class KarakOraxenMechanics implements Listener {
         if (section == null) return;
         enabled = section.getBoolean("enabled", true);
         MechanicsManager.registerMechanicFactory("textitem",
-                new TextItemMechanicFactory(KarakOrigins.instance, section),
+                new TextItemMechanicFactory(KarakOrigins.plugin, section),
                 enabled);
 
         section = mechanics.getConfigurationSection("sealed");
         if (section == null) return;
         enabled = section.getBoolean("enabled", true);
         MechanicsManager.registerMechanicFactory("sealed",
-                new SealedItemMechanicFactory(KarakOrigins.instance, section),
+                new SealedItemMechanicFactory(KarakOrigins.plugin, section),
                 enabled);
 
 
