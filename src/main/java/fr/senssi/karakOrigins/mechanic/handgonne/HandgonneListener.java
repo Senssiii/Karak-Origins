@@ -18,7 +18,7 @@ public class HandgonneListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
-    public void onDamage(PlayerInteractEvent event) {
+    public void onInteract(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.OFF_HAND) // Eviter les doubles actions d'un coup.
             return;
         Player player = event.getPlayer();

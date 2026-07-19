@@ -103,7 +103,24 @@ public class ItemFormatter {
     /// Change l'affichage du nom sur l'item
     private static void updateNom(ItemStack itemStack) {
         String nom = ItemUtils.getString(itemStack, NBTKeys.NOM_ITEM);
+        if (nom.isEmpty())
+            nom = getItemDisplayName(itemStack);
         updateNom(itemStack, nom);
+    }
+
+    private static String getItemDisplayName(ItemStack item) {
+        if (item == null || item.getType().isAir()) return null;
+
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return null;
+
+        String rawName;
+        if (meta.hasDisplayName() && meta.displayName() != null) {
+            rawName = PlainTextComponentSerializer.plainText().serialize(meta.displayName());
+        } else {
+            rawName = PlainTextComponentSerializer.plainText().serialize(item.displayName());
+        }
+        return rawName.replaceAll("[\\[\\]]", "");
     }
 
     /**

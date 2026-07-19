@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ItemFormatCommand extends SimpleCommand {
     public ItemFormatCommand() {
-        super("itemformat", true);
+        super("format", true);
     }
 
     @Override
@@ -30,6 +30,8 @@ public class ItemFormatCommand extends SimpleCommand {
             String[] str = CommandUtils.argsToString(args, 1).split("#");
             ItemFormatter.setName(item, str[0]);
             ItemFormatter.setDescription(item, str[1]);
+        } else if (args[0].equalsIgnoreCase("refresh")) {
+            ItemFormatter.updateItemFormatting(item);
         }
         ItemFormatter.updateItemFormatting(item);
     }
@@ -37,7 +39,7 @@ public class ItemFormatCommand extends SimpleCommand {
     @Override
     public List<String> tab(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("lore", "nom", "quick");
+            return Arrays.asList("lore", "nom", "quick", "refresh");
         } else if (args.length == 2 && args[0].equalsIgnoreCase("quick")) {
             return List.of("#");
         } else {

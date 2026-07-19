@@ -3,6 +3,7 @@ package fr.senssi.karakOrigins.mechanic;
 import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.mechanic.handgonne.HandgonneMechanicFactory;
 import fr.senssi.karakOrigins.mechanic.sealeditem.SealedItemMechanicFactory;
+import fr.senssi.karakOrigins.mechanic.sealitem.SealItemMechanicFactory;
 import fr.senssi.karakOrigins.mechanic.textitem.TextItemMechanicFactory;
 import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.api.OraxenItems;
@@ -48,6 +49,12 @@ public class KarakOraxenMechanics implements Listener {
                 new SealedItemMechanicFactory(KarakOrigins.plugin, section),
                 enabled);
 
+        section = mechanics.getConfigurationSection("seal");
+        if (section == null) return;
+        enabled = section.getBoolean("enabled", true);
+        MechanicsManager.registerMechanicFactory("seal",
+                new SealItemMechanicFactory(KarakOrigins.plugin, section),
+                enabled);
 
         // Re-parse items so the new mechanic is applied.
         OraxenItems.loadItems();

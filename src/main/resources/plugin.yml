@@ -19,9 +19,9 @@ commands:
     usage: "/stopplayer <joueur>"
     permission: karakorigins.mj.stopplayer
     permission-message: "§cTu n'as pas la permission d'arrêter des joueurs."
-  itemformat:
+  format:
     description: "Permet de modifier les items."
-    usage: "/itemformat <nom|lore> <texte>"
+    usage: "/format <nom|lore> <texte>"
     permission: karakorigins.mj.itemformat
     permission-message: "§cTu n'as pas la permission de modifier les items."
   identity:
