@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class HandgonneListener implements Listener {
@@ -18,6 +19,8 @@ public class HandgonneListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
     public void onDamage(PlayerInteractEvent event) {
+        if (event.getHand() == EquipmentSlot.OFF_HAND) // Eviter les doubles actions d'un coup.
+            return;
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) return;

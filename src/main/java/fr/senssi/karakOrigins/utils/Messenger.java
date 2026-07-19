@@ -16,11 +16,13 @@ public class Messenger {
         for (Player onlinePlayer : s.getOnlinePlayers()) {
             onlinePlayer.sendMessage(message);
         }
+        log(message, s);
     }
 
     public static void sendAdminMessage(String str, Player p) {
         String message = ChatColor.RED + "[ADMIN] " + ChatColor.GRAY + str;
         p.sendMessage(message);
+        log(message, p.getServer());
     }
 
     public static void log(String str, Server server) {
@@ -56,6 +58,7 @@ public class Messenger {
         for (Entity entity : nearbyEntities) {
             entity.sendMessage(str);
         }
+        log(str, start.getServer());
     }
 
     /**
@@ -65,10 +68,9 @@ public class Messenger {
      * @param distance Distance max pour recevoir le message
      */
     public static void sendLocalPlayerMessage(String prefix, String msg, Player p, int distance) {
-        Identity identity = IdentityManager.getIdentity(p);
+        Identity identity = IdentityManager.getOrCreateIdentity(p);
         String message = String.format("%s%s %s %s%s", ChatColor.GRAY, identity.getNomPrenom(), prefix, ChatColor.GRAY, msg);
         sendLocalMessage(message, p, distance);
-
     }
 
     public static void agirMessage(String message, Player player) {

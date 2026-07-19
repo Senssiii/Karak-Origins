@@ -1,18 +1,13 @@
 package fr.senssi.karakOrigins.commands.mj;
 
-import dev.triumphteam.gui.builder.item.ItemBuilder;
-import dev.triumphteam.gui.guis.Gui;
-import dev.triumphteam.gui.guis.GuiItem;
 import fr.senssi.karakOrigins.commands.SimpleCommand;
 import fr.senssi.karakOrigins.identity.Identity;
 import fr.senssi.karakOrigins.identity.IdentityManager;
 import fr.senssi.karakOrigins.utils.CommandUtils;
+import fr.senssi.karakOrigins.utils.Messenger;
 import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -61,17 +56,23 @@ public class IdentityCommand extends SimpleCommand {
 
         if (args[0].equalsIgnoreCase("get")) {
             Player target = sender.getServer().getPlayer(args[1]);
-            Identity id = IdentityManager.getIdentity(target);
-            Gui identityGUI = createIdentityGUI(id);
-            if (sender instanceof HumanEntity)
-                identityGUI.open((HumanEntity) sender);
+            Identity id = IdentityManager.getOrCreateIdentity(target);
+//            if (sender instanceof HumanEntity) {
+//                Gui identityGUI = createIdentityGUI(id);
+//                identityGUI.open((HumanEntity) sender);
+//            }
+            // Temporairement le temps de voir comment faire des interfaces.
+            Messenger.sendAdminMessage(id.toString(), (Player) sender);
         } else if (args[0].equalsIgnoreCase("set")) {
             String s = CommandUtils.argsToString(args, 3);
 
             Player changing = sender.getServer().getPlayer(args[1]); // Le joueur qui va prendre les modifications
-            Identity identity = IdentityManager.getIdentity(changing);
+            Identity identity = IdentityManager.getOrCreateIdentity(changing);
             setNewIdentityValue(args, identity, s);
             identity.save();
+        } else {
+            Identity id = IdentityManager.getOrCreateIdentity((Player) sender);
+            Messenger.sendAdminMessage(id.toString(), (Player) sender);
         }
     }
 
@@ -91,17 +92,17 @@ public class IdentityCommand extends SimpleCommand {
         }
     }
 
-    public Gui createIdentityGUI(Identity id) {
-        Gui gui = Gui.gui().title(Component.text(id.getNomPrenom())).rows(3).create();
-        ItemStack head = getInfoHead(id);
-
-        GuiItem infos = ItemBuilder
-                .from(head)
-                .asGuiItem();
-
-        gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).asGuiItem());
-        gui.setItem(2 + 9, infos);
-        gui.disableAllInteractions();
-        return gui;
-    }
+//    public Gui createIdentityGUI(Identity id) {
+//        Gui gui = Gui.gui().title(Component.text(id.getNomPrenom())).rows(3).create();
+//        ItemStack head = getInfoHead(id);
+//
+//        GuiItem infos = ItemBuilder
+//                .from(head)
+//                .asGuiItem();
+//
+//        gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).asGuiItem());
+//        gui.setItem(2 + 9, infos);
+//        gui.disableAllInteractions();
+//        return gui;
+//    }
 }

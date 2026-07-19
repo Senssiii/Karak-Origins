@@ -1,15 +1,16 @@
 package fr.senssi.karakOrigins.identity;
 
-import de.tr7zw.changeme.nbtapi.NBT;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
 import org.bukkit.entity.Player;
 
+import static fr.senssi.karakOrigins.utils.EntityNbtManager.setStringData;
+
 public class Identity {
-    private final Player player;
     public String nom;
     public String prenom;
     public String age;
     public String origine;
+    private Player player;
 
     public Identity(String nom, String prenom, String age, String origine, Player player) {
         this.nom = nom;
@@ -27,17 +28,19 @@ public class Identity {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     @Override
     public String toString() {
         return getNomPrenom() + " " + age + " ans, de " + origine + ".";
     }
 
     public void save() {
-        NBT.modifyPersistentData(player, nbt -> {
-            nbt.setString(NBTKeys.NOM, nom);
-            nbt.setString(NBTKeys.PRENOM, prenom);
-            nbt.setString(NBTKeys.AGE, age);
-            nbt.setString(NBTKeys.ORIGINE, origine);
-        });
+        setStringData(player, NBTKeys.NOM, nom);
+        setStringData(player, NBTKeys.PRENOM, prenom);
+        setStringData(player, NBTKeys.AGE, age);
+        setStringData(player, NBTKeys.ORIGINE, origine);
     }
 }

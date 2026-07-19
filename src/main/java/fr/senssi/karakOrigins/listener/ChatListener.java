@@ -32,7 +32,7 @@ public class ChatListener implements Listener {
             } else if (message.startsWith("!")) {
                 Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CRIE]", message.substring(1).trim(), player, 20);
             } else if (message.startsWith("$")) {
-                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CHUCHOTTE]", message.substring(1).trim(), player, 1);
+                Messenger.sendLocalPlayerMessage(ChatColor.DARK_GREEN + "[CHUCHOTE]", message.substring(1).trim(), player, 1);
             } else if (message.startsWith("(")) { // HRP
                 String hrp = message.substring(1);
                 if (hrp.endsWith(")")) hrp = hrp.substring(0, hrp.length() - 1);

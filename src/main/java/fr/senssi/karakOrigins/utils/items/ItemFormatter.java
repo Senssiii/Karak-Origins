@@ -80,16 +80,23 @@ public class ItemFormatter {
     /// Si aucune valeur de description n'avait été donné, on en set une par rapport à ce qui est déjà dans le lore.
     private static @NonNull String getOrCreateDescription(ItemStack itemStack) {
         String description = ItemUtils.getString(itemStack, NBTKeys.DESCRIPTION);
-        if (description == null || description.isEmpty()) {
+
+        if (description.isEmpty()) {
             ItemMeta meta = itemStack.getItemMeta();
-            List<Component> lore = meta.lore();
-            if (meta.hasLore() && lore != null) {
-                description = PlainTextComponentSerializer.plainText().serialize(lore.getFirst());
+            if (meta != null && meta.hasLore()) {
+                List<Component> lore = meta.lore();
+                if (lore != null && !lore.isEmpty()) {
+                    description = PlainTextComponentSerializer.plainText().serialize(lore.getFirst());
+                }
+            }
+
+            if (!description.isEmpty()) {
+                ItemUtils.setItemNbt(itemStack, NBTKeys.DESCRIPTION, description);
             } else {
                 description = "";
             }
-            ItemUtils.setItemNbt(itemStack, NBTKeys.DESCRIPTION, description);
         }
+
         return description;
     }
 

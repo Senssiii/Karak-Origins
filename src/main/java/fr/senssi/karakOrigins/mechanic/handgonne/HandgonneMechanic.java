@@ -164,14 +164,11 @@ public class HandgonneMechanic extends Mechanic {
 
     private void shootAt(Player player, Entity entityTouched, int poudre) {
         if (entityTouched instanceof LivingEntity) {
-
             LivingEntity livingEntity = (LivingEntity) entityTouched;
 
             hitWithBullet(player, livingEntity, poudre);
 
-            if (livingEntity instanceof Player) {
-                Player touchedPlayer = (Player) livingEntity;
-
+            if (livingEntity instanceof Player touchedPlayer && touchedPlayer.getGameMode() == GameMode.CREATIVE) {
                 Messenger.sendPersonnalNarrationMessage("Vous avez été touché par balle.", touchedPlayer);
 
                 setEffect(touchedPlayer);
@@ -181,13 +178,13 @@ public class HandgonneMechanic extends Mechanic {
         playShotSound(player);
     }
 
-    private void hitWithBullet(Player shooter, LivingEntity livingEntity, int poudre) {
-        giveDamage(livingEntity, poudre);
-        float damageYaw = calculateDamageYaw(shooter.getLocation(), livingEntity.getLocation());
-        livingEntity.playHurtAnimation(damageYaw);
-        World world = livingEntity.getLocation().getWorld();
-        if (world == null) return;
-        world.playSound(livingEntity.getLocation(), Sound.BLOCK_ANVIL_HIT, 1f, 1.5f);
+    private void hitWithBullet(Player shooter, LivingEntity shotEntity, int poudre) {
+        giveDamage(shotEntity, poudre);
+        float damageYaw = calculateDamageYaw(shooter.getLocation(), shotEntity.getLocation());
+        shotEntity.playHurtAnimation(damageYaw);
+        World world = shotEntity.getWorld();
+
+        world.playSound(shotEntity.getLocation(), Sound.BLOCK_ANVIL_HIT, 1f, 1.5f);
     }
 
     /**
@@ -246,8 +243,9 @@ public class HandgonneMechanic extends Mechanic {
     }
 
     private void playShotSound(Player player) {
-        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
-        player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
+        World world = player.getWorld();
+        world.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
+        world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
     }
 
     private void spawnShotParticles(Player player) {

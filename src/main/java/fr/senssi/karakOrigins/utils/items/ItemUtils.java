@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
@@ -36,29 +37,31 @@ public class ItemUtils {
 
     public static void setItemNbt(ItemStack i, String key, String value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.STRING, value);
+            persistentDataContainer.set(createNamespacedKey(key), PersistentDataType.STRING, value);
         }));
+    }
+
+    private static @NonNull NamespacedKey createNamespacedKey(String key) {
+        return new NamespacedKey(plugin, key);
     }
 
     public static void setItemNbt(ItemStack i, String key, int value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.INTEGER, value);
+            persistentDataContainer.set(createNamespacedKey(key), PersistentDataType.INTEGER, value);
         }));
     }
 
     public static void setItemNbt(ItemStack i, String key, boolean value) {
         i.editPersistentDataContainer((persistentDataContainer -> {
-            persistentDataContainer.set(new NamespacedKey(plugin, key), PersistentDataType.BOOLEAN, value);
+            persistentDataContainer.set(createNamespacedKey(key), PersistentDataType.BOOLEAN, value);
         }));
     }
 
-    /**
-     * Récupère le String attaché.
-     *
-     * @return La valeur associée à la clé.
-     */
+    /// @param item
+    /// @param key
+    /// @return "" si pas de valeur associé
     public static String getString(ItemStack item, String key) {
-        return item.getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.STRING);
+        return item.getPersistentDataContainer().getOrDefault(createNamespacedKey(key), PersistentDataType.STRING, "");
     }
 
     /// @return Erreur quand il n'y a pas de valeur associée.
@@ -66,12 +69,12 @@ public class ItemUtils {
         if (item == null || item.getType().isAir()) {
             return defaultValue;
         }
-        NamespacedKey namespacedKey = new NamespacedKey(plugin, key);
+        NamespacedKey namespacedKey = createNamespacedKey(key);
         return item.getPersistentDataContainer().getOrDefault(namespacedKey, PersistentDataType.INTEGER, defaultValue);
     }
 
-    /// @return Erreur quand il n'y a pas de valeur associée.
+    /// @return Si pas de valeur associé : false
     public static boolean getBoolean(ItemStack item, String key) {
-        return item.getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.BOOLEAN);
+        return item.getPersistentDataContainer().getOrDefault(createNamespacedKey(key), PersistentDataType.BOOLEAN, false);
     }
 }

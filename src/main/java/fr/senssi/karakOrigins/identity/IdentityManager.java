@@ -8,12 +8,12 @@ public class IdentityManager {
     // For reading/storing custom data on (block-)entities, you should use methods that end with PersistentData.
     // https://github.com/tr7zw/Item-NBT-API/wiki/Using-the-NBT-API#working-with-entities-and-block-entities
     public static Identity setDefaultIdentity(Player p) {
-        Identity identity = new Identity("Irmanov", "Jean", "40", "Léos", p);
+        Identity identity = new Identity("Pâte", "Jean", "40", "Léos", p);
         identity.save();
         return identity;
     }
 
-    public static Identity getIdentity(Player p) {
+    public static Identity getOrCreateIdentity(Player p) {
         String age = EntityNbtManager.getString(p, NBTKeys.AGE);
         String nom = EntityNbtManager.getString(p, NBTKeys.NOM);
         String prenom = EntityNbtManager.getString(p, NBTKeys.PRENOM);
