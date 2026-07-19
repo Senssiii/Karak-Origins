@@ -30,7 +30,7 @@ public class SealItemListener implements Listener {
                 String sealText = SealItemMechanic.getSealText(item);
 
                 ItemStack offHandItem = player.getInventory().getItemInOffHand();
-                if (!offHandItem.getType().isAir()) {
+                if (!offHandItem.isEmpty()) {
                     SealItemMechanic.setSeal(offHandItem, sealText);
                     Messenger.sendPersonnalNarrationMessage("§aL'objet a été scellé avec succès !", player);
                     event.setCancelled(true); // Annule l'action par défaut du clic droit

@@ -11,10 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.Objects.requireNonNullElseGet;
 
 public class ItemFormatter {
     /**
@@ -63,17 +60,17 @@ public class ItemFormatter {
 
     /// @param itemStack L'objet dont le tooltip sera modifié en fonction de sa description dans les NBT
     private static void updateDescription(ItemStack itemStack) {
-        List<String> lore = new ArrayList<>();
-        String description = ChatColor.GRAY + getOrCreateDescription(itemStack);
-        lore.add(description);
+        List<String> loreList = new ArrayList<>();
+        String description = ChatColor.DARK_GRAY + getOrCreateDescription(itemStack);
+        loreList.add(description);
 
         if (SealedItemMechanic.isSealedItem(itemStack)) {
             boolean isSealed = SealedItemMechanic.isSealed(itemStack);
-            String sealedText = SealedItemMechanic.getSealText(itemStack);
-            lore.add(ChatColor.DARK_RED + SealedItemFormatter.getSealedText(isSealed, sealedText));
+            String seal = SealedItemMechanic.getSealText(itemStack);
+            loreList.add(ChatColor.DARK_RED + SealedItemFormatter.getSealedText(isSealed, seal));
         }
 
-        updateLore(itemStack, Collections.singletonList(description));
+        updateLore(itemStack, loreList);
     }
 
     /// @param itemStack L'item dont on cherche la description
@@ -140,12 +137,9 @@ public class ItemFormatter {
 
     private static void updateNom(ItemStack s, String str) {
         ItemMeta itemMeta = s.getItemMeta();
-        String name = ChatColor.GRAY + "";
-        // S'il n'y a pas de nom définit plus tôt, on prend le nom de base pour le mettre dans les tags.
-        name += requireNonNullElseGet(str, itemMeta::getDisplayName);
+        String name = ChatColor.GRAY + str;
 
-
-        itemMeta.setDisplayName(name);
+        itemMeta.displayName(Component.text(name));
 
         s.setItemMeta(itemMeta);
     }

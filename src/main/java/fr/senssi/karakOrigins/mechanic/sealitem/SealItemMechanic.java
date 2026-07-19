@@ -2,7 +2,6 @@ package fr.senssi.karakOrigins.mechanic.sealitem;
 
 import fr.senssi.karakOrigins.KarakOrigins;
 import fr.senssi.karakOrigins.mechanic.sealeditem.SealedItemMechanic;
-import fr.senssi.karakOrigins.mechanic.sealeditem.SealedItemMechanicFactory;
 import fr.senssi.karakOrigins.utils.items.ItemFormatter;
 import fr.senssi.karakOrigins.utils.items.ItemUtils;
 import fr.senssi.karakOrigins.utils.keys.NBTKeys;
@@ -27,7 +26,7 @@ public class SealItemMechanic extends Mechanic {
     }
 
     public static boolean isSealItem(ItemStack item) {
-        SealItemMechanic mechanic = (SealItemMechanic) SealedItemMechanicFactory.instance.getMechanic(item);
+        SealItemMechanic mechanic = (SealItemMechanic) SealItemMechanicFactory.instance.getMechanic(item);
         return mechanic != null;
     }
 
